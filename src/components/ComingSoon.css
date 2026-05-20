@@ -1,0 +1,158 @@
+.coming-soon {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-cream);
+  background-image: linear-gradient(
+    135deg,
+    var(--color-cream) 0%,
+    rgba(201, 179, 130, 0.45) 28%,
+    rgba(201, 179, 130, 0.78) 55%,
+    rgba(201, 179, 130, 0.95) 78%,
+    rgba(168, 149, 106, 0.88) 100%
+  );
+}
+
+.coming-soon__nav,
+.coming-soon__main,
+.coming-soon__footer {
+  position: relative;
+}
+
+/* ── Navbar ── */
+.coming-soon__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1.5rem 0;
+  flex-shrink: 0;
+}
+
+.coming-soon__logo {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+/* ── Centered main ── */
+.coming-soon__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  gap: 1.5rem;
+}
+
+.coming-soon__heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 8vw, 3.75rem);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+  animation: fade-in 0.8s var(--ease-out) both;
+}
+
+.coming-soon__divider {
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold) 50%,
+    transparent
+  );
+  animation: fade-in 0.8s var(--ease-out) 0.1s both;
+}
+
+.coming-soon__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 20rem;
+  animation: fade-in 0.8s var(--ease-out) 0.2s both;
+}
+
+@media (min-width: 480px) {
+  .coming-soon__actions {
+    flex-direction: row;
+    align-items: center;
+    max-width: none;
+    width: auto;
+  }
+}
+
+.coming-soon__btn {
+  padding: 0.8rem 1.35rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    transform 0.15s var(--ease-out),
+    box-shadow 0.2s;
+}
+
+.coming-soon__btn:hover {
+  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-gold);
+}
+
+.coming-soon__btn:active {
+  transform: scale(0.98);
+}
+
+.coming-soon__btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* ── Footer ── */
+.coming-soon__footer {
+  flex-shrink: 0;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.coming-soon__footer p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coming-soon__heading,
+  .coming-soon__divider,
+  .coming-soon__actions {
+    animation: none;
+  }
+}

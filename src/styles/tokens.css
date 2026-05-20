@@ -1,0 +1,33 @@
+:root {
+  --color-gold: #c9b382;
+  --color-gold-dark: #a8956a;
+  --color-gold-light: #e8dcc4;
+  --color-slate: #2a3642;
+  --color-slate-deep: #1e2830;
+  --color-cream: #faf9f7;
+  --color-white: #ffffff;
+  --color-text: #1d1d1d;
+  --color-text-muted: #666666;
+  --color-border: #e8e6e2;
+
+  --color-primary: #c9b382;
+  --color-primary-hover: #a8956a;
+  --color-on-primary: #ffffff;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Afacad", system-ui, -apple-system, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  --shadow-card: 0 8px 40px rgba(42, 54, 66, 0.08);
+  --shadow-soft: 0 4px 20px rgba(42, 54, 66, 0.05);
+  --shadow-gold: 0 8px 28px rgba(201, 179, 130, 0.25);
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
