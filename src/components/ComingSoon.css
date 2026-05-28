@@ -1,44 +1,3 @@
-.coming-soon {
-  position: relative;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background-color: var(--color-cream);
-  background-image: linear-gradient(
-    135deg,
-    var(--color-cream) 0%,
-    rgba(201, 179, 130, 0.45) 28%,
-    rgba(201, 179, 130, 0.78) 55%,
-    rgba(201, 179, 130, 0.95) 78%,
-    rgba(168, 149, 106, 0.88) 100%
-  );
-}
-
-.coming-soon__nav,
-.coming-soon__main,
-.coming-soon__footer {
-  position: relative;
-}
-
-/* ── Navbar ── */
-.coming-soon__nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 1.5rem 0;
-  flex-shrink: 0;
-}
-
-.coming-soon__logo {
-  font-family: var(--font-body);
-  font-size: 1.125rem;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: -0.02em;
-  color: var(--color-text);
-}
-
-/* ── Centered main ── */
 .coming-soon__main {
   flex: 1;
   display: flex;
@@ -95,6 +54,9 @@
 }
 
 .coming-soon__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.8rem 1.35rem;
   font-family: var(--font-body);
   font-size: 0.875rem;
@@ -105,6 +67,7 @@
   border-radius: var(--radius-md);
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
   transition:
     background 0.2s,
     transform 0.15s var(--ease-out),
@@ -123,19 +86,6 @@
 .coming-soon__btn:focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 3px;
-}
-
-/* ── Footer ── */
-.coming-soon__footer {
-  flex-shrink: 0;
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.coming-soon__footer p {
-  margin: 0;
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
 }
 
 @keyframes fade-in {
