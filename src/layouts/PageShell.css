@@ -22,10 +22,12 @@
 }
 
 .page-shell__nav {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem 1.5rem 0;
+  min-height: 2.75rem;
 }
 
 .page-shell__logo {
@@ -36,6 +38,154 @@
   color: var(--color-text);
   text-decoration: none;
   transition: color 0.2s;
+}
+
+.page-shell__nav-auth {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-shell__user-menu {
+  position: relative;
+}
+
+.page-shell__user-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 12rem;
+  padding: 0.4rem 0.5rem 0.4rem 0.65rem;
+  font-family: inherit;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.page-shell__user-trigger:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-soft);
+}
+
+.page-shell__user-trigger:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.page-shell__user-name {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page-shell__user-chevron {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-text-muted);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.page-shell__user-chevron--open {
+  transform: rotate(180deg);
+}
+
+.page-shell__user-dropdown {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  right: 0;
+  min-width: 8.5rem;
+  padding: 0.35rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  z-index: 50;
+}
+
+.page-shell__logout-btn {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate);
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: calc(var(--radius-md) - 4px);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.page-shell__menu-link {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate);
+  text-align: left;
+  text-decoration: none;
+  border-radius: calc(var(--radius-md) - 4px);
+  transition: background 0.15s, color 0.15s;
+}
+
+.page-shell__menu-link:hover {
+  background: rgba(201, 179, 130, 0.15);
+  color: var(--color-slate-deep);
+}
+
+.page-shell__menu-link:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -2px;
+}
+
+.page-shell__logout-btn:hover {
+  background: rgba(201, 179, 130, 0.15);
+  color: var(--color-slate-deep);
+}
+
+.page-shell__logout-btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -2px;
+}
+
+.page-shell__login-btn {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.page-shell__login-btn:hover {
+  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-gold);
+}
+
+.page-shell__login-btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
 }
 
 .page-shell__logo:hover {
