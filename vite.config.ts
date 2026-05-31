@@ -11,12 +11,20 @@ const userProfileTarget =
 const profileApiTarget =
   "https://2gajkkmi0d.execute-api.eu-central-1.amazonaws.com/dev";
 
+const loginApiTarget =
+  "https://3eft0vl4ka.execute-api.eu-central-1.amazonaws.com/dev";
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), forgotPasswordPlugin()],
   envPrefix: ["VITE_", "EXPO_PUBLIC_"],
   server: {
     proxy: {
+      "/api/login": {
+        target: loginApiTarget,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/login\/?$/, "/login"),
+      },
       "/api/firebase-auth": {
         target: firebaseAuthTarget,
         changeOrigin: true,

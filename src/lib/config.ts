@@ -7,43 +7,14 @@ const DEFAULT_USER_PROFILE_ENDPOINT =
 const DEFAULT_PROFILE_API_BASE =
   "https://2gajkkmi0d.execute-api.eu-central-1.amazonaws.com/dev";
 
-/** Vite dev proxy paths — zaobilaze CORS (vite.config.ts) */
-const DEV_USER_PROFILE_PROXY = "/api/user-profile";
-const DEV_PROFILE_API_PROXY = "/api/profile-api";
-
-function resolveUserProfileEndpoint(): string {
-  if (import.meta.env.DEV) return DEV_USER_PROFILE_PROXY;
-  return (
-    import.meta.env.VITE_USER_PROFILE_ENDPOINT ??
-    import.meta.env.VITE_PROFILE_FETCH_URL ??
-    DEFAULT_USER_PROFILE_ENDPOINT
-  );
-}
-
-function resolveProfileApiBase(): string {
-  if (import.meta.env.DEV) return DEV_PROFILE_API_PROXY;
-  return trimTrailingSlash(
-    import.meta.env.VITE_PROFILE_API_BASE ?? DEFAULT_PROFILE_API_BASE,
-  );
-}
+/** Same-origin proxy paths — Vite dev proxy + Vercel rewrites (vercel.json). */
+const LOGIN_PROXY = "/api/login";
+const USER_PROFILE_PROXY = "/api/user-profile";
+const PROFILE_API_PROXY = "/api/profile-api";
+const FIREBASE_AUTH_PROXY = "/api/firebase-auth";
 
 const DEFAULT_FIREBASE_AUTH_EXCHANGE_ENDPOINT =
   "https://ai8hjf2fsc.execute-api.eu-central-1.amazonaws.com/dev/auth/firebase";
-
-/** In dev, Vite proxy avoids CORS on firebase auth API (see vite.config.ts). */
-const DEV_FIREBASE_AUTH_PROXY = "/api/firebase-auth";
-
-function resolveFirebaseAuthExchange(): string {
-  // U dev modu uvijek proxy (API nema CORS). U produkciji direktan URL.
-  if (import.meta.env.DEV) {
-    return DEV_FIREBASE_AUTH_PROXY;
-  }
-  return (
-    import.meta.env.VITE_FIREBASE_AUTH_EXCHANGE_ENDPOINT ??
-    import.meta.env.VITE_FIREBASE_AUTH_URL ??
-    DEFAULT_FIREBASE_AUTH_EXCHANGE_ENDPOINT
-  );
-}
 
 const DEFAULT_FIREBASE_SIGNUP_ENDPOINT =
   "https://ai8hjf2fsc.execute-api.eu-central-1.amazonaws.com/dev/signup/firebase";
@@ -55,13 +26,54 @@ function trimTrailingSlash(url: string): string {
   return url.replace(/\/+$/, "");
 }
 
+function useSameOriginProxy(): boolean {
+  if (import.meta.env.VITE_USE_API_PROXY === "false") return false;
+  if (import.meta.env.VITE_USE_API_PROXY === "true") return true;
+  // Default: proxy in dev (Vite) and production (Vercel rewrites).
+  return true;
+}
+
+function resolveLoginEndpoint(): string {
+  if (useSameOriginProxy()) {
+    return import.meta.env.VITE_LOGIN_API_URL ?? LOGIN_PROXY;
+  }
+  const apiBase = trimTrailingSlash(
+    import.meta.env.VITE_API_BASE ?? DEFAULT_API_BASE,
+  );
+  return import.meta.env.VITE_LOGIN_API_URL ?? `${apiBase}/login`;
+}
+
+function resolveUserProfileEndpoint(): string {
+  if (useSameOriginProxy()) return USER_PROFILE_PROXY;
+  return (
+    import.meta.env.VITE_USER_PROFILE_ENDPOINT ??
+    import.meta.env.VITE_PROFILE_FETCH_URL ??
+    DEFAULT_USER_PROFILE_ENDPOINT
+  );
+}
+
+function resolveProfileApiBase(): string {
+  if (useSameOriginProxy()) return PROFILE_API_PROXY;
+  return trimTrailingSlash(
+    import.meta.env.VITE_PROFILE_API_BASE ?? DEFAULT_PROFILE_API_BASE,
+  );
+}
+
+function resolveFirebaseAuthExchange(): string {
+  if (useSameOriginProxy()) return FIREBASE_AUTH_PROXY;
+  return (
+    import.meta.env.VITE_FIREBASE_AUTH_EXCHANGE_ENDPOINT ??
+    import.meta.env.VITE_FIREBASE_AUTH_URL ??
+    DEFAULT_FIREBASE_AUTH_EXCHANGE_ENDPOINT
+  );
+}
+
 export const apiBase = trimTrailingSlash(
   import.meta.env.VITE_API_BASE ?? DEFAULT_API_BASE,
 );
 
 export const endpoints = {
-  login:
-    import.meta.env.VITE_LOGIN_API_URL ?? `${apiBase}/login`,
+  login: resolveLoginEndpoint(),
   userProfile: resolveUserProfileEndpoint(),
   profileApiBase: resolveProfileApiBase(),
   firebaseAuthExchange: resolveFirebaseAuthExchange(),
