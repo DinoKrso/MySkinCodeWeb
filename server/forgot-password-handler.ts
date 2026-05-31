@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { Resend } from "resend";
 import { checkEmailExists, getCheckEmailApiUrl } from "./check-email-client";
 import { createPasswordResetToken } from "./password-reset-token";
+import { readRequestBody } from "./request-body";
 
 type ForgotPasswordEnv = {
   resendApiKey: string;
@@ -12,29 +13,7 @@ type ForgotPasswordEnv = {
 };
 
 function readJsonBody(req: IncomingMessage): Promise<unknown> {
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = [];
-
-    req.on("data", (chunk: Buffer) => {
-      chunks.push(chunk);
-    });
-
-    req.on("end", () => {
-      const raw = Buffer.concat(chunks).toString("utf8").trim();
-      if (!raw) {
-        resolve({});
-        return;
-      }
-
-      try {
-        resolve(JSON.parse(raw));
-      } catch {
-        reject(new Error("Invalid JSON body."));
-      }
-    });
-
-    req.on("error", reject);
-  });
+  return readRequestBody(req);
 }
 
 function sendJson(
@@ -168,6 +147,7 @@ export function loadForgotPasswordEnv(
   const appBaseUrl =
     env.APP_BASE_URL?.trim() ||
     env.VITE_APP_BASE_URL?.trim() ||
+    (env.VERCEL_URL ? `https://${env.VERCEL_URL}` : "") ||
     "http://localhost:5173";
 
   if (!resendApiKey || !jwtSecret) {

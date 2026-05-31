@@ -1,5 +1,10 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { verifyPasswordResetToken } from "./password-reset-token";
+import { readRequestBody } from "./request-body";
+
+type QueryRequest = IncomingMessage & {
+  query?: Record<string, string | string[] | undefined>;
+};
 
 type ResetPasswordEnv = {
   jwtSecret: string;
@@ -7,29 +12,7 @@ type ResetPasswordEnv = {
 };
 
 function readJsonBody(req: IncomingMessage): Promise<unknown> {
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = [];
-
-    req.on("data", (chunk: Buffer) => {
-      chunks.push(chunk);
-    });
-
-    req.on("end", () => {
-      const raw = Buffer.concat(chunks).toString("utf8").trim();
-      if (!raw) {
-        resolve({});
-        return;
-      }
-
-      try {
-        resolve(JSON.parse(raw));
-      } catch {
-        reject(new Error("Invalid JSON body."));
-      }
-    });
-
-    req.on("error", reject);
-  });
+  return readRequestBody(req);
 }
 
 function sendJson(
@@ -42,7 +25,15 @@ function sendJson(
   res.end(JSON.stringify(body));
 }
 
-function readTokenFromQuery(req: IncomingMessage): string | null {
+function readTokenFromQuery(req: QueryRequest): string | null {
+  const queryToken = req.query?.token;
+  if (typeof queryToken === "string" && queryToken.trim()) {
+    return queryToken.trim();
+  }
+  if (Array.isArray(queryToken) && typeof queryToken[0] === "string") {
+    return queryToken[0].trim() || null;
+  }
+
   const url = req.url;
   if (!url) return null;
 
@@ -79,7 +70,7 @@ function readPasswordFromBody(body: unknown): string | null {
 }
 
 export async function handleValidateResetTokenRequest(
-  req: IncomingMessage,
+  req: QueryRequest,
   res: ServerResponse,
   env: ResetPasswordEnv,
 ): Promise<void> {

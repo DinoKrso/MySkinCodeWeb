@@ -5,8 +5,16 @@
       "destination": "https://3eft0vl4ka.execute-api.eu-central-1.amazonaws.com/dev/login"
     },
     {
+      "source": "/api/check-email",
+      "destination": "https://3eft0vl4ka.execute-api.eu-central-1.amazonaws.com/dev/check-email"
+    },
+    {
       "source": "/api/firebase-auth",
       "destination": "https://ai8hjf2fsc.execute-api.eu-central-1.amazonaws.com/dev/auth/firebase"
+    },
+    {
+      "source": "/api/firebase-signup",
+      "destination": "https://ai8hjf2fsc.execute-api.eu-central-1.amazonaws.com/dev/signup/firebase"
     },
     {
       "source": "/api/user-profile",
@@ -15,6 +23,10 @@
     {
       "source": "/api/profile-api/:path*",
       "destination": "https://2gajkkmi0d.execute-api.eu-central-1.amazonaws.com/dev/:path*"
+    },
+    {
+      "source": "/api/active-routine",
+      "destination": "https://c0cpdmd5ug.execute-api.eu-central-1.amazonaws.com/dev/routine/active"
     }
   ]
 }

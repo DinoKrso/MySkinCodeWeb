@@ -2,11 +2,20 @@ const DEFAULT_CHECK_EMAIL_API_URL =
   "https://3eft0vl4ka.execute-api.eu-central-1.amazonaws.com/dev/check-email";
 
 export function getCheckEmailApiUrl(env: Record<string, string>): string {
-  return (
-    env.CHECK_EMAIL_API_URL?.trim() ||
-    env.VITE_CHECK_EMAIL_API_URL?.trim() ||
-    DEFAULT_CHECK_EMAIL_API_URL
-  );
+  if (env.USE_API_PROXY?.trim() === "false") {
+    return (
+      env.CHECK_EMAIL_API_URL?.trim() ||
+      env.VITE_CHECK_EMAIL_API_URL?.trim() ||
+      DEFAULT_CHECK_EMAIL_API_URL
+    );
+  }
+
+  const appBase =
+    env.APP_BASE_URL?.trim() ||
+    (env.VERCEL_URL ? `https://${env.VERCEL_URL}` : "") ||
+    "http://localhost:5173";
+
+  return `${appBase.replace(/\/+$/, "")}/api/check-email`;
 }
 
 export async function checkEmailExists(
