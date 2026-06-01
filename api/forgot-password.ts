@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import {
   handleForgotPasswordRequest,
   loadForgotPasswordEnv,
-} from "../server/forgot-password-handler";
+} from "./lib/forgot-password-handler.js";
 
 export default async function handler(
   req: VercelRequest,

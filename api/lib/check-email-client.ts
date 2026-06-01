@@ -1,4 +1,4 @@
-import { apiTargets } from "./api-targets";
+import { apiTargets } from "./api-targets.js";
 
 const DEFAULT_CHECK_EMAIL_API_URL = `${apiTargets.loginApi}/check-email`;
 

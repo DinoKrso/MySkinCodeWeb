@@ -1,7 +1,7 @@
 import type { IncomingMessage } from "node:http";
-import { type ApiResponse, sendJson } from "./http-response";
-import { verifyPasswordResetToken } from "./password-reset-token";
-import { readRequestBody } from "./request-body";
+import { type ApiResponse, sendJson } from "./http-response.js";
+import { verifyPasswordResetToken } from "./password-reset-token.js";
+import { readRequestBody } from "./request-body.js";
 
 type QueryRequest = IncomingMessage & {
   query?: Record<string, string | string[] | undefined>;

@@ -3,10 +3,10 @@ import { Resend } from "resend";
 import {
   checkEmailExists,
   getServerCheckEmailApiUrl,
-} from "./check-email-client";
-import { type ApiResponse, sendJson } from "./http-response";
-import { createPasswordResetToken } from "./password-reset-token";
-import { readRequestBody } from "./request-body";
+} from "./check-email-client.js";
+import { type ApiResponse, sendJson } from "./http-response.js";
+import { createPasswordResetToken } from "./password-reset-token.js";
+import { readRequestBody } from "./request-body.js";
 
 type ForgotPasswordEnv = {
   resendApiKey: string;

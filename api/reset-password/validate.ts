@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import {
   handleValidateResetTokenRequest,
   loadResetPasswordEnv,
-} from "../../server/reset-password-handler";
+} from "../lib/reset-password-handler.js";
 
 export default async function handler(
   req: VercelRequest,

@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { forgotPasswordPlugin } from "./server/vite-forgot-password-plugin";
-import { apiTargets } from "./server/api-targets";
+import { apiTargets } from "./api/lib/api-targets";
 
 // https://vite.dev/config/
 export default defineConfig({
