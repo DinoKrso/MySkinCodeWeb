@@ -1,5 +1,6 @@
 import type { IncomingMessage } from "node:http";
 import { Resend } from "resend";
+import { getAppBaseUrl } from "./app-base-url.js";
 import {
   checkEmailExists,
   getServerCheckEmailApiUrl,
@@ -145,11 +146,7 @@ export function loadForgotPasswordEnv(
   const jwtSecret = env.PASSWORD_RESET_JWT_SECRET?.trim();
   const resendFrom =
     env.RESEND_FROM?.trim() || "MySkinCode <noreply@myskincodeapp.com>";
-  const appBaseUrl =
-    env.APP_BASE_URL?.trim() ||
-    env.VITE_APP_BASE_URL?.trim() ||
-    (env.VERCEL_URL ? `https://${env.VERCEL_URL}` : "") ||
-    "http://localhost:5173";
+  const appBaseUrl = getAppBaseUrl(env);
 
   if (!resendApiKey || !jwtSecret) {
     return null;

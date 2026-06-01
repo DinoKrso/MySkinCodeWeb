@@ -1,3 +1,4 @@
+import { getAppBaseUrl } from "./app-base-url.js";
 import { apiTargets } from "./api-targets.js";
 
 const DEFAULT_CHECK_EMAIL_API_URL = `${apiTargets.loginApi}/check-email`;
@@ -22,12 +23,7 @@ export function getCheckEmailApiUrl(env: Record<string, string>): string {
     );
   }
 
-  const appBase =
-    env.APP_BASE_URL?.trim() ||
-    (env.VERCEL_URL ? `https://${env.VERCEL_URL}` : "") ||
-    "http://localhost:5173";
-
-  return `${appBase.replace(/\/+$/, "")}/api/check-email`;
+  return `${getAppBaseUrl(env)}/api/check-email`;
 }
 
 export async function checkEmailExists(
