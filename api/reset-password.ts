@@ -17,5 +17,15 @@ export default async function handler(
     return;
   }
 
-  await handleResetPasswordRequest(req, res, env);
+  try {
+    await handleResetPasswordRequest(req, res, env);
+  } catch (err) {
+    console.error(
+      "[reset-password] Unhandled error:",
+      err instanceof Error ? err.message : err,
+    );
+    if (!res.headersSent) {
+      res.status(500).json({ error: "Došlo je do greške." });
+    }
+  }
 }

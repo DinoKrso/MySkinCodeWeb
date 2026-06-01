@@ -17,5 +17,15 @@ export default async function handler(
     return;
   }
 
-  await handleValidateResetTokenRequest(req, res, env);
+  try {
+    await handleValidateResetTokenRequest(req, res, env);
+  } catch (err) {
+    console.error(
+      "[reset-password/validate] Unhandled error:",
+      err instanceof Error ? err.message : err,
+    );
+    if (!res.headersSent) {
+      res.status(500).json({ error: "Došlo je do greške." });
+    }
+  }
 }
