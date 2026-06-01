@@ -1,5 +1,17 @@
-const DEFAULT_CHECK_EMAIL_API_URL =
-  "https://3eft0vl4ka.execute-api.eu-central-1.amazonaws.com/dev/check-email";
+import { apiTargets } from "./api-targets";
+
+const DEFAULT_CHECK_EMAIL_API_URL = `${apiTargets.loginApi}/check-email`;
+
+/** Direct AWS URL for serverless (avoids self-fetch via public site). */
+export function getServerCheckEmailApiUrl(env: Record<string, string>): string {
+  return (
+    env.CHECK_EMAIL_API_URL?.trim() ||
+    (env.VITE_API_BASE?.trim()
+      ? `${env.VITE_API_BASE.replace(/\/+$/, "")}/check-email`
+      : "") ||
+    DEFAULT_CHECK_EMAIL_API_URL
+  );
+}
 
 export function getCheckEmailApiUrl(env: Record<string, string>): string {
   if (env.USE_API_PROXY?.trim() === "false") {

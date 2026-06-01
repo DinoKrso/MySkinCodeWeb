@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -37,7 +37,7 @@ function GoogleIcon() {
 export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loginSuccess } = useAuth();
+  const { loginSuccess, user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +45,13 @@ export default function LoginPage() {
   const [googleLoading, setGoogleLoading] = useState(false);
 
   const returnTo =
-    (location.state as { from?: string } | null)?.from ?? "/";
+    (location.state as { from?: string } | null)?.from ?? "/dashboard/profil";
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard/profil", { replace: true });
+    }
+  }, [user, navigate]);
 
   function finishLogin(token: string, user: { userId: string; email: string; name?: string }) {
     loginSuccess(token, user);
@@ -93,10 +99,10 @@ export default function LoginPage() {
 
   return (
     <PageShell>
-      <main className="login-page">
-        <div className="login-page__panel">
-          <h1 className="login-page__title">Prijava</h1>
-          <p className="login-page__subtitle">
+      <main className="ui-page">
+        <div className="ui-panel">
+          <h1 className="ui-panel__title">Prijava</h1>
+          <p className="ui-panel__subtitle">
             Unesite e-mail i lozinku ili se prijavite putem Google računa.
           </p>
 
@@ -104,7 +110,7 @@ export default function LoginPage() {
             <>
               <button
                 type="button"
-                className="login-page__google-btn"
+                className="ui-btn-google"
                 onClick={handleGoogleLogin}
                 disabled={busy}
               >
@@ -113,14 +119,14 @@ export default function LoginPage() {
                   {googleLoading ? "Google prijava..." : "Nastavi s Googleom"}
                 </span>
               </button>
-              <div className="login-page__divider">
+              <div className="ui-divider">
                 <span>ili</span>
               </div>
             </>
           )}
 
-          <form className="login-page__form" onSubmit={handleSubmit}>
-            <div className="login-page__field">
+          <form className="ui-form" onSubmit={handleSubmit}>
+            <div className="ui-field">
               <label htmlFor="email">E-mail</label>
               <input
                 id="email"
@@ -135,10 +141,10 @@ export default function LoginPage() {
               />
             </div>
 
-            <div className="login-page__field">
-              <div className="login-page__password-row">
+            <div className="ui-field">
+              <div className="ui-field__row">
                 <label htmlFor="password">Lozinka</label>
-                <Link to="/forgot-password" className="login-page__forgot-link">
+                <Link to="/forgot-password" className="ui-link-inline">
                   Zaboravili ste lozinku?
                 </Link>
               </div>
@@ -156,22 +162,18 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <p className="login-page__error" role="alert">
+              <p className="ui-error" role="alert">
                 {error}
               </p>
             )}
 
-            <button
-              type="submit"
-              className="login-page__submit"
-              disabled={busy}
-            >
+            <button type="submit" className="ui-btn-primary" disabled={busy}>
               {loading ? "Prijava..." : "Prijavi se"}
             </button>
           </form>
 
           {!firebaseReady && (
-            <div className="login-page__hint">
+            <div className="ui-hint">
               <p>
                 <strong>Lambda API je već spojen</strong> (
                 <code>/auth/firebase</code>). Ali prije poziva tog API-ja,
@@ -192,7 +194,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          <Link to="/" className="login-page__back">
+          <Link to="/" className="ui-link-back">
             ← Natrag na početnu
           </Link>
         </div>

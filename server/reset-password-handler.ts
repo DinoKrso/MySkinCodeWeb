@@ -1,4 +1,5 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
+import type { IncomingMessage } from "node:http";
+import { type ApiResponse, sendJson } from "./http-response";
 import { verifyPasswordResetToken } from "./password-reset-token";
 import { readRequestBody } from "./request-body";
 
@@ -13,16 +14,6 @@ type ResetPasswordEnv = {
 
 function readJsonBody(req: IncomingMessage): Promise<unknown> {
   return readRequestBody(req);
-}
-
-function sendJson(
-  res: ServerResponse,
-  status: number,
-  body: Record<string, unknown>,
-): void {
-  res.statusCode = status;
-  res.setHeader("Content-Type", "application/json");
-  res.end(JSON.stringify(body));
 }
 
 function readTokenFromQuery(req: QueryRequest): string | null {
@@ -71,7 +62,7 @@ function readPasswordFromBody(body: unknown): string | null {
 
 export async function handleValidateResetTokenRequest(
   req: QueryRequest,
-  res: ServerResponse,
+  res: ApiResponse,
   env: ResetPasswordEnv,
 ): Promise<void> {
   if (req.method !== "GET") {
@@ -98,7 +89,7 @@ export async function handleValidateResetTokenRequest(
 
 export async function handleResetPasswordRequest(
   req: IncomingMessage,
-  res: ServerResponse,
+  res: ApiResponse,
   env: ResetPasswordEnv,
 ): Promise<void> {
   if (req.method !== "POST") {

@@ -34,24 +34,24 @@ export default function ForgotPasswordPage() {
 
   return (
     <PageShell>
-      <main className="forgot-password-page">
-        <div className="forgot-password-page__panel">
-          <h1 className="forgot-password-page__title">Zaboravljena lozinka</h1>
-          <p className="forgot-password-page__subtitle">
+      <main className="ui-page">
+        <div className="ui-panel">
+          <h1 className="ui-panel__title">Zaboravljena lozinka</h1>
+          <p className="ui-panel__subtitle">
             Unesite e-mail adresu povezanu s vašim računom. Poslat ćemo vam
             link za postavljanje nove lozinke.
           </p>
 
           {successMessage ? (
-            <div className="forgot-password-page__success" role="status">
+            <div className="ui-success" role="status">
               <p>{successMessage}</p>
-              <p className="forgot-password-page__success-hint">
+              <p className="ui-success__hint">
                 Provjerite inbox i spam folder. Link vrijedi 1 sat.
               </p>
             </div>
           ) : (
-            <form className="forgot-password-page__form" onSubmit={handleSubmit}>
-              <div className="forgot-password-page__field">
+            <form className="ui-form" onSubmit={handleSubmit}>
+              <div className="ui-field">
                 <label htmlFor="forgot-email">E-mail</label>
                 <input
                   id="forgot-email"
@@ -67,22 +67,18 @@ export default function ForgotPasswordPage() {
               </div>
 
               {error && (
-                <p className="forgot-password-page__error" role="alert">
+                <p className="ui-error" role="alert">
                   {error}
                 </p>
               )}
 
-              <button
-                type="submit"
-                className="forgot-password-page__submit"
-                disabled={loading}
-              >
+              <button type="submit" className="ui-btn-primary" disabled={loading}>
                 {loading ? "Slanje..." : "Pošalji link za reset"}
               </button>
             </form>
           )}
 
-          <Link to="/login" className="forgot-password-page__back">
+          <Link to="/login" className="ui-link-back">
             ← Natrag na prijavu
           </Link>
         </div>

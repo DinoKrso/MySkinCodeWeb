@@ -1,6 +1,10 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
+import type { IncomingMessage } from "node:http";
 import { Resend } from "resend";
-import { checkEmailExists, getCheckEmailApiUrl } from "./check-email-client";
+import {
+  checkEmailExists,
+  getServerCheckEmailApiUrl,
+} from "./check-email-client";
+import { type ApiResponse, sendJson } from "./http-response";
 import { createPasswordResetToken } from "./password-reset-token";
 import { readRequestBody } from "./request-body";
 
@@ -14,16 +18,6 @@ type ForgotPasswordEnv = {
 
 function readJsonBody(req: IncomingMessage): Promise<unknown> {
   return readRequestBody(req);
-}
-
-function sendJson(
-  res: ServerResponse,
-  status: number,
-  body: Record<string, unknown>,
-): void {
-  res.statusCode = status;
-  res.setHeader("Content-Type", "application/json");
-  res.end(JSON.stringify(body));
 }
 
 function isValidEmail(email: string): boolean {
@@ -61,7 +55,7 @@ function buildResetEmailHtml(resetUrl: string): string {
 
 export async function handleForgotPasswordRequest(
   req: IncomingMessage,
-  res: ServerResponse,
+  res: ApiResponse,
   env: ForgotPasswordEnv,
 ): Promise<void> {
   if (req.method !== "POST") {
@@ -121,13 +115,20 @@ export async function handleForgotPasswordRequest(
     });
 
     if (error) {
+      console.error("[forgot-password] Resend API error:", error.message);
       sendJson(res, 502, {
         error: "Slanje e-maila nije uspjelo. Pokušajte ponovo kasnije.",
       });
       return;
     }
-  } catch {
-    sendJson(res, 500, { error: "Došlo je do greške. Pokušajte ponovo." });
+  } catch (err) {
+    console.error(
+      "[forgot-password] Resend send failed:",
+      err instanceof Error ? err.message : err,
+    );
+    sendJson(res, 502, {
+      error: "Slanje e-maila nije uspjelo. Pokušajte ponovo kasnije.",
+    });
     return;
   }
 
@@ -159,6 +160,6 @@ export function loadForgotPasswordEnv(
     resendFrom,
     appBaseUrl,
     jwtSecret,
-    checkEmailApiUrl: getCheckEmailApiUrl(env),
+    checkEmailApiUrl: getServerCheckEmailApiUrl(env),
   };
 }

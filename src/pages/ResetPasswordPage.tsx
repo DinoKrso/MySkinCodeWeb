@@ -88,20 +88,20 @@ export default function ResetPasswordPage() {
 
   return (
     <PageShell>
-      <main className="reset-password-page">
-        <div className="reset-password-page__panel">
-          <h1 className="reset-password-page__title">Nova lozinka</h1>
+      <main className="ui-page">
+        <div className="ui-panel">
+          <h1 className="ui-panel__title">Nova lozinka</h1>
 
           {validating && (
-            <p className="reset-password-page__subtitle">Provjera linka...</p>
+            <p className="ui-panel__subtitle">Provjera linka...</p>
           )}
 
           {!validating && validationError && (
             <>
-              <p className="reset-password-page__error" role="alert">
+              <p className="ui-error" role="alert">
                 {validationError}
               </p>
-              <Link to="/forgot-password" className="reset-password-page__back">
+              <Link to="/forgot-password" className="ui-link-back">
                 Zatraži novi link
               </Link>
             </>
@@ -109,12 +109,12 @@ export default function ResetPasswordPage() {
 
           {!validating && !validationError && successMessage && (
             <>
-              <div className="reset-password-page__success" role="status">
+              <div className="ui-success" role="status">
                 <p>{successMessage}</p>
               </div>
               <button
                 type="button"
-                className="reset-password-page__submit"
+                className="ui-btn-primary"
                 onClick={() => navigate("/login", { replace: true })}
               >
                 Idi na prijavu
@@ -124,13 +124,13 @@ export default function ResetPasswordPage() {
 
           {!validating && !validationError && !successMessage && email && (
             <>
-              <p className="reset-password-page__subtitle">
+              <p className="ui-panel__subtitle">
                 Postavite novu lozinku za račun{" "}
-                <strong className="reset-password-page__email">{email}</strong>
+                <strong>{email}</strong>
               </p>
 
-              <form className="reset-password-page__form" onSubmit={handleSubmit}>
-                <div className="reset-password-page__field">
+              <form className="ui-form" onSubmit={handleSubmit}>
+                <div className="ui-field">
                   <label htmlFor="new-password">Nova lozinka</label>
                   <input
                     id="new-password"
@@ -146,7 +146,7 @@ export default function ResetPasswordPage() {
                   />
                 </div>
 
-                <div className="reset-password-page__field">
+                <div className="ui-field">
                   <label htmlFor="confirm-password">Potvrdi lozinku</label>
                   <input
                     id="confirm-password"
@@ -163,16 +163,12 @@ export default function ResetPasswordPage() {
                 </div>
 
                 {submitError && (
-                  <p className="reset-password-page__error" role="alert">
+                  <p className="ui-error" role="alert">
                     {submitError}
                   </p>
                 )}
 
-                <button
-                  type="submit"
-                  className="reset-password-page__submit"
-                  disabled={loading}
-                >
+                <button type="submit" className="ui-btn-primary" disabled={loading}>
                   {loading ? "Spremanje..." : "Spremi novu lozinku"}
                 </button>
               </form>
@@ -180,7 +176,7 @@ export default function ResetPasswordPage() {
           )}
 
           {!validating && !validationError && !successMessage && (
-            <Link to="/login" className="reset-password-page__back">
+            <Link to="/login" className="ui-link-back">
               ← Natrag na prijavu
             </Link>
           )}

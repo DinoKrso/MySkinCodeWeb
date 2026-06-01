@@ -1,20 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { getStoredToken } from "../lib/auth";
-import PageShell from "../layouts/PageShell";
+import { useAuth } from "../../context/AuthContext";
+import { useDashboardProfile } from "../../context/DashboardProfileContext";
+import { getStoredToken } from "../../lib/auth";
 import {
-  fetchUserProfile,
-  formatPlanLabel,
   formatTreatment,
   mergeProfileWithAuthUser,
   updateProfile,
   uploadProfileImage,
   type ProfileQuestionnaire,
-  type UserProfile,
-} from "../lib/profile";
-import "./ProfilePage.css";
+} from "../../lib/profile";
+import "./dashboard-pages.css";
 
 function ProfileAvatar({
   name,
@@ -57,7 +53,7 @@ function ProfileAvatar({
       />
       <button
         type="button"
-        className="profile-page__secondary-btn"
+        className="ui-btn-secondary"
         disabled={uploading}
         onClick={() => inputRef.current?.click()}
       >
@@ -72,7 +68,9 @@ function ChipList({ items, empty }: { items: string[]; empty: string }) {
   return (
     <ul className="profile-page__chips">
       {items.map((item) => (
-        <li key={item}>{item}</li>
+        <li key={item} className="ui-chip">
+          {item}
+        </li>
       ))}
     </ul>
   );
@@ -84,11 +82,7 @@ function QuestionnaireSection({
   questionnaire: ProfileQuestionnaire | null | undefined;
 }) {
   if (!questionnaire) {
-    return (
-      <p className="profile-page__empty">
-        Upitnik nije popunjen.
-      </p>
-    );
+    return <p className="profile-page__empty">Upitnik nije popunjen.</p>;
   }
 
   const treatments = (questionnaire.professionalTreatments ?? []).map(
@@ -156,11 +150,9 @@ function QuestionnaireSection({
   );
 }
 
-export default function ProfilePage() {
+export default function DashboardProfilePage() {
   const { user, updateUser } = useAuth();
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { profile, loading, error, setProfile } = useDashboardProfile();
   const [nameDraft, setNameDraft] = useState("");
   const [savingName, setSavingName] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -171,42 +163,10 @@ export default function ProfilePage() {
   }, []);
 
   useEffect(() => {
-    if (!user) return;
-
-    const token = getStoredToken();
-    if (!token) {
-      setError("Sesija nije valjana.");
-      setLoading(false);
-      return;
+    if (profile?.name !== undefined) {
+      setNameDraft(profile.name ?? "");
     }
-
-    let cancelled = false;
-
-    async function load() {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await fetchUserProfile(token!, user!.userId);
-        if (cancelled) return;
-        const merged = mergeProfileWithAuthUser(data, user!);
-        setProfile(merged);
-        setNameDraft(merged.name ?? "");
-      } catch (err) {
-        if (!cancelled) {
-          setError(
-            err instanceof Error ? err.message : "Dohvat profila nije uspio.",
-          );
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [user?.userId]);
+  }, [profile?.name]);
 
   async function handleSaveName(e: FormEvent) {
     e.preventDefault();
@@ -256,83 +216,68 @@ export default function ProfilePage() {
     profile?.name?.trim() || user?.name?.trim() || user?.email || "Korisnik";
 
   return (
-    <PageShell>
-      <main className="profile-page">
-        <div className="profile-page__container">
-          <header className="profile-page__header">
-            <div>
-              <p className="profile-page__eyebrow">Profil</p>
-              <h1 className="profile-page__title">{displayName}</h1>
-            </div>
-            <Link to="/" className="profile-page__back-link">
-              ← Početna
-            </Link>
-          </header>
+    <div>
+      <header className="dashboard-view__header">
+        <h1 className="dashboard-view__title">Profil</h1>
+        <p className="dashboard-view__subtitle">
+          Upravljajte osobnim podacima i skincare upitnikom.
+        </p>
+      </header>
 
-          {loading && <p className="profile-page__status">Učitavanje profila...</p>}
-          {error && (
-            <p className="profile-page__error" role="alert">
-              {error}
-            </p>
-          )}
-          {statusMessage && (
-            <p className="profile-page__status profile-page__status--success">
-              {statusMessage}
-            </p>
-          )}
+      {loading && <p className="profile-page__status">Učitavanje profila...</p>}
+      {error && (
+        <p className="ui-error" role="alert">
+          {error}
+        </p>
+      )}
+      {statusMessage && (
+        <p className="profile-page__status profile-page__status--success">
+          {statusMessage}
+        </p>
+      )}
 
-          {!loading && !error && profile && user && (
-            <>
-              <section className="profile-page__card">
-                <ProfileAvatar
-                  name={displayName}
-                  imageUrl={profile.imageUrl}
-                  onUpload={handleImageUpload}
-                  uploading={uploadingImage}
+      {!loading && !error && profile && user && (
+        <div className="dashboard-view__stack">
+          <section className="ui-card">
+            <ProfileAvatar
+              name={displayName}
+              imageUrl={profile.imageUrl}
+              onUpload={handleImageUpload}
+              uploading={uploadingImage}
+            />
+
+            <form className="profile-page__name-form" onSubmit={handleSaveName}>
+              <label htmlFor="profile-name">Ime</label>
+              <div className="profile-page__name-row">
+                <input
+                  id="profile-name"
+                  type="text"
+                  value={nameDraft}
+                  onChange={(e) => setNameDraft(e.target.value)}
+                  disabled={savingName}
                 />
+                <button
+                  type="submit"
+                  className="ui-btn-primary"
+                  disabled={savingName || !nameDraft.trim()}
+                >
+                  {savingName ? "Spremanje..." : "Spremi"}
+                </button>
+              </div>
+            </form>
 
-                <form className="profile-page__name-form" onSubmit={handleSaveName}>
-                  <label htmlFor="profile-name">Ime</label>
-                  <div className="profile-page__name-row">
-                    <input
-                      id="profile-name"
-                      type="text"
-                      value={nameDraft}
-                      onChange={(e) => setNameDraft(e.target.value)}
-                      disabled={savingName}
-                    />
-                    <button
-                      type="submit"
-                      className="profile-page__primary-btn"
-                      disabled={savingName || !nameDraft.trim()}
-                    >
-                      {savingName ? "Spremanje..." : "Spremi"}
-                    </button>
-                  </div>
-                </form>
+            <dl className="profile-page__facts profile-page__facts--compact">
+              <dt>E-mail</dt>
+              <dd>{profile.email ?? user.email}</dd>
+            </dl>
+          </section>
 
-                <dl className="profile-page__facts profile-page__facts--compact">
-                  <dt>E-mail</dt>
-                  <dd>{profile.email ?? user.email}</dd>
-                  <dt>Pretplata</dt>
-                  <dd>{formatPlanLabel(profile.subscriptionPlan)}</dd>
-                  {profile.subscriptionExpiresAt && (
-                    <>
-                      <dt>Istječe</dt>
-                      <dd>{profile.subscriptionExpiresAt}</dd>
-                    </>
-                  )}
-                </dl>
-              </section>
-
-              <section className="profile-page__card">
-                <h2 className="profile-page__section-title">Upitnik</h2>
-                <QuestionnaireSection questionnaire={profile.questionnaire} />
-              </section>
-            </>
-          )}
+          <section className="ui-card">
+            <h2 className="ui-card__title">Upitnik</h2>
+            <QuestionnaireSection questionnaire={profile.questionnaire} />
+          </section>
         </div>
-      </main>
-    </PageShell>
+      )}
+    </div>
   );
 }

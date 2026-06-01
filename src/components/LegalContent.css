@@ -4,7 +4,7 @@
   font-size: var(--legal-fs-title);
   font-weight: var(--font-weight-medium);
   line-height: var(--legal-lh-title);
-  color: var(--legal-title);
+  color: var(--color-text);
 }
 
 .legal-content__meta {
@@ -13,7 +13,7 @@
   font-size: var(--legal-fs-meta);
   font-weight: var(--font-weight-regular);
   line-height: var(--legal-lh-body);
-  color: var(--legal-meta);
+  color: var(--color-text-muted);
 }
 
 .legal-content__section-title {
@@ -22,7 +22,7 @@
   font-size: var(--legal-fs-section);
   font-weight: var(--font-weight-medium);
   line-height: var(--legal-lh-title);
-  color: var(--legal-title);
+  color: var(--color-text);
 }
 
 .legal-content__section:first-of-type .legal-content__section-title {
