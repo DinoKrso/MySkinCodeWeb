@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { PRICING_PLANS } from "../content/plans";
+import PricingPlansSection from "../components/PricingPlansSection";
+import type { BillingInterval } from "../content/plans";
 import { useAuth } from "../context/AuthContext";
 import "./HomePage.css";
 
@@ -102,26 +103,6 @@ const PARTNER_BRANDS = [
   "Typology",
 ] as const;
 
-function CheckIcon() {
-  return (
-    <svg
-      className="landing-check-icon"
-      viewBox="0 0 20 20"
-      fill="none"
-      aria-hidden="true"
-    >
-      <circle cx="10" cy="10" r="10" fill="currentColor" fillOpacity="0.15" />
-      <path
-        d="M6 10l3 3 5-6"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function StoreBadge({
   store,
   large = false,
@@ -160,6 +141,7 @@ export default function HomePage() {
   const { user } = useAuth();
   const [activeStep, setActiveStep] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [billingInterval, setBillingInterval] = useState<BillingInterval>("monthly");
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const scrollToStep = useCallback((index: number) => {
@@ -187,8 +169,8 @@ export default function HomePage() {
 
           <div className="landing-header__actions">
             {user ? (
-              <Link to="/dashboard/profil" className="landing-header__login">
-                Dashboard
+              <Link to="/account" className="landing-header__login">
+                Moj paket
               </Link>
             ) : (
               <Link to="/login" className="landing-header__login">
@@ -324,50 +306,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section
-        className="landing-pricing"
-        id="pricing"
-        aria-labelledby="pricing-title"
-      >
+      <section className="landing-pricing" id="pricing">
         <div className="landing__container">
-          <div className="landing-section-head">
-            <h2 id="pricing-title">Odaberite svoj paket</h2>
-            <p>
-              Započnite besplatno ili odaberite napredne funkcionalnosti za
-              potpunu AI personalizaciju
-            </p>
-          </div>
-          <div className="landing-pricing__grid">
-            {PRICING_PLANS.map((plan) => (
-              <article
-                key={plan.id}
-                className={`landing-pricing-card${plan.featured ? " landing-pricing-card--featured" : ""}`}
-              >
-                {plan.featured && (
-                  <span className="landing-pricing-card__badge">
-                    Preporučeno
-                  </span>
-                )}
-                <h3>{plan.name}</h3>
-                <p className="landing-pricing-card__desc">{plan.description}</p>
-                <p className="landing-pricing-card__price">{plan.price}</p>
-                <p className="landing-pricing-card__period">
-                  {plan.period ?? "\u00a0"}
-                </p>
-                <a href="#download" className="landing-btn landing-btn--primary landing-btn--full">
+          <PricingPlansSection
+            title="Odaberite svoj paket"
+            subtitle="Započnite besplatno ili odaberite napredne funkcionalnosti za potpunu AI personalizaciju"
+            billingInterval={billingInterval}
+            onBillingChange={setBillingInterval}
+            renderCardAction={(plan) => {
+              const planHref = `/plans?plan=${plan.id}&billing=${billingInterval}`;
+
+              return user ? (
+                <Link to={planHref} className="pricing-plans-card__cta">
                   Odaberi paket
-                </a>
-                <ul className="landing-pricing-card__features">
-                  {plan.features.map((feature) => (
-                    <li key={feature}>
-                      <CheckIcon />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
+                </Link>
+              ) : (
+                <Link
+                  to={`/login?plan=${plan.id}&billing=${billingInterval}`}
+                  className="pricing-plans-card__cta"
+                >
+                  Odaberi paket
+                </Link>
+              );
+            }}
+          />
         </div>
       </section>
 

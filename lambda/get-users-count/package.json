@@ -1,0 +1,14 @@
+{
+  "name": "get-users-count",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lambda: broj zapisa u DynamoDB Users tablici",
+  "main": "handler.mjs",
+  "scripts": {
+    "zip": "npm ci --omit=dev && zip -r get-users-count.zip handler.mjs node_modules package.json"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.758.0"
+  }
+}

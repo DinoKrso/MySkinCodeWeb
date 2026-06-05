@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { login, loginWithFirebaseToken } from "../lib/auth";
 import { getMissingFirebaseEnvKeys, isFirebaseConfigured, signInWithGoogle } from "../lib/firebase";
@@ -44,14 +44,21 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
+  const [searchParams] = useSearchParams();
+  const planParam = searchParams.get("plan");
+  const billingParam = searchParams.get("billing");
+  const defaultReturn = planParam
+    ? `/plans?plan=${encodeURIComponent(planParam)}${billingParam ? `&billing=${encodeURIComponent(billingParam)}` : ""}`
+    : "/plans";
+
   const returnTo =
-    (location.state as { from?: string } | null)?.from ?? "/dashboard/profil";
+    (location.state as { from?: string } | null)?.from ?? defaultReturn;
 
   useEffect(() => {
     if (user) {
-      navigate("/dashboard/profil", { replace: true });
+      navigate(defaultReturn, { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, defaultReturn]);
 
   function finishLogin(token: string, user: { userId: string; email: string; name?: string }) {
     loginSuccess(token, user);

@@ -27,10 +27,22 @@
 
 .dashboard-layout__sidebar-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 0.35rem 0.5rem;
   margin-bottom: 2rem;
   padding: 0 0.5rem;
+}
+
+.dashboard-layout__admin-badge {
+  flex-basis: 100%;
+  margin-left: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 .dashboard-layout__logo {

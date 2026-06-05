@@ -1,0 +1,15 @@
+{
+  "name": "create-product",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lambda: dodavanje proizvoda u DynamoDB",
+  "main": "handler.mjs",
+  "scripts": {
+    "zip": "npm ci --omit=dev && zip -r create-product.zip handler.mjs node_modules package.json"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.758.0",
+    "@aws-sdk/lib-dynamodb": "^3.758.0"
+  }
+}

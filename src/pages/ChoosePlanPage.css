@@ -1,0 +1,34 @@
+.choose-plan-page {
+  flex: 1;
+  padding: 5rem var(--app-section-pad) 6rem;
+  background: linear-gradient(
+    180deg,
+    #fdfcfa 0%,
+    #fefefe 50%,
+    #faf9f7 100%
+  );
+}
+
+.choose-plan-page__inner {
+  width: min(100%, 1280px);
+  margin-inline: auto;
+}
+
+.choose-plan-page__error {
+  max-width: 40rem;
+  margin: 0 auto 1.5rem;
+  text-align: center;
+}
+
+.choose-plan-page__footer {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.choose-plan-page__footer a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

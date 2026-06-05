@@ -1,0 +1,13 @@
+{
+  "name": "product-image-upload",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "handler.mjs",
+  "scripts": {
+    "zip": "npm ci --omit=dev && zip -r product-image-upload.zip handler.mjs node_modules package.json"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.758.0"
+  }
+}

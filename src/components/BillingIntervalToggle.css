@@ -1,0 +1,66 @@
+.billing-toggle {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 0.35rem;
+  background: var(--color-cream, #f7f4ef);
+  border: 1px solid var(--color-border-soft);
+  border-radius: 999px;
+}
+
+.billing-toggle__thumb {
+  position: absolute;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  left: 0.35rem;
+  width: calc(50% - 0.35rem);
+  border-radius: 999px;
+  background: var(--color-primary);
+  box-shadow: var(--shadow-gold);
+  transform: translateX(0);
+  transition: transform 0.35s var(--ease-out);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.billing-toggle--yearly .billing-toggle__thumb {
+  transform: translateX(100%);
+}
+
+.billing-toggle__btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7.5rem;
+  padding: 0.55rem 1.15rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.25s var(--ease-out);
+}
+
+.billing-toggle__btn:hover:not(.billing-toggle__btn--active) {
+  color: var(--color-text);
+}
+
+.billing-toggle__btn--active {
+  color: var(--color-on-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .billing-toggle__thumb {
+    transition: none;
+  }
+
+  .billing-toggle__btn {
+    transition: none;
+  }
+}

@@ -12,7 +12,8 @@ export default function PageShell({ children }: Props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const showNavAuth = pathname !== "/login";
+  const showNavAuth =
+    pathname !== "/login" && !pathname.startsWith("/admin");
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -82,12 +83,12 @@ export default function PageShell({ children }: Props) {
                   {menuOpen && (
                     <div className="page-shell__user-dropdown" role="menu">
                     <Link
-                      to="/dashboard/profil"
+                      to="/account"
                       className="page-shell__menu-link"
                         role="menuitem"
                         onClick={() => setMenuOpen(false)}
                       >
-                        Profil
+                        Moj paket
                       </Link>
                       <button
                         type="button"

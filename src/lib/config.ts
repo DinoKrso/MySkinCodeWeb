@@ -101,6 +101,11 @@ export const apiBase = trimTrailingSlash(
   import.meta.env.VITE_API_BASE ?? DEFAULT_API_BASE,
 );
 
+const ADMIN_USERS_COUNT_PROXY = "/api/admin/users-count";
+const ADMIN_PRODUCTS_COUNT_PROXY = "/api/admin/products-count";
+const ADMIN_CREATE_PRODUCT_PROXY = "/api/admin/products";
+const ADMIN_PRODUCT_IMAGE_UPLOAD_PROXY = "/api/admin/product-image-upload";
+
 export const endpoints = {
   login: resolveLoginEndpoint(),
   userProfile: resolveUserProfileEndpoint(),
@@ -109,4 +114,15 @@ export const endpoints = {
   firebaseSignup: resolveFirebaseSignup(),
   activeRoutine: resolveActiveRoutine(),
   checkEmail: resolveCheckEmailEndpoint(),
+  adminUsersCount:
+    import.meta.env.VITE_ADMIN_USERS_COUNT_API ?? ADMIN_USERS_COUNT_PROXY,
+  adminProductsCount:
+    import.meta.env.VITE_ADMIN_PRODUCTS_COUNT_API ??
+    ADMIN_PRODUCTS_COUNT_PROXY,
+  adminCreateProduct:
+    import.meta.env.VITE_ADMIN_CREATE_PRODUCT_API ??
+    ADMIN_CREATE_PRODUCT_PROXY,
+  adminProductImageUpload:
+    import.meta.env.VITE_ADMIN_PRODUCT_IMAGE_UPLOAD_API ??
+    ADMIN_PRODUCT_IMAGE_UPLOAD_PROXY,
 } as const;

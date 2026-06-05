@@ -1,55 +1,17 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { getDisplayName, useAuth } from "../context/AuthContext";
-import { DashboardProfileProvider } from "../context/DashboardProfileContext";
+import { useAdminAuth } from "../context/AdminAuthContext";
 import "./DashboardLayout.css";
+import "../styles/admin-dashboard.css";
 
 const NAV_ITEMS = [
   {
-    to: "/dashboard/profil",
-    label: "Profil",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.75" />
-        <path
-          d="M4 20c0-3.314 3.582-6 8-6s8 2.686 8 6"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    to: "/dashboard/pretplata",
-    label: "Pretplata i paketi",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect
-          x="3"
-          y="6"
-          width="18"
-          height="14"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.75"
-        />
-        <path
-          d="M3 10h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    to: "/dashboard/podrska",
-    label: "Podrška",
+    to: "/admin/proizvodi",
+    label: "Proizvodi",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path
-          d="M4 4h16a2 2 0 012 2v8a2 2 0 01-2 2h-5l-4 3v-3H4a2 2 0 01-2-2V6a2 2 0 012-2z"
+          d="M6 8h12l-1 10H7L6 8zM9 8V6a3 3 0 016 0v2"
           stroke="currentColor"
           strokeWidth="1.75"
           strokeLinejoin="round"
@@ -57,27 +19,30 @@ const NAV_ITEMS = [
       </svg>
     ),
   },
+  {
+    to: "/admin/analitika",
+    label: "Analitika",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M4 20V10M10 20V4M16 20v-6M22 20V8"
+          stroke="currentColor"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
 ] as const;
 
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-}
-
-function DashboardShell() {
+export default function DashboardLayout() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { session, logout } = useAdminAuth();
   const [navOpen, setNavOpen] = useState(false);
-
-  const displayName = user ? getDisplayName(user) : "Korisnik";
 
   function handleLogout() {
     logout();
-    navigate("/", { replace: true });
+    navigate("/admin/login", { replace: true });
   }
 
   function closeNav() {
@@ -85,7 +50,7 @@ function DashboardShell() {
   }
 
   return (
-    <div className="dashboard-layout">
+    <div className="dashboard-layout dashboard-layout--admin">
       <button
         type="button"
         className={`dashboard-layout__backdrop${navOpen ? " dashboard-layout__backdrop--visible" : ""}`}
@@ -95,12 +60,13 @@ function DashboardShell() {
 
       <aside
         className={`dashboard-layout__sidebar${navOpen ? " dashboard-layout__sidebar--open" : ""}`}
-        aria-label="Dashboard navigacija"
+        aria-label="Admin navigacija"
       >
         <div className="dashboard-layout__sidebar-header">
-          <Link to="/dashboard" className="dashboard-layout__logo" onClick={closeNav}>
+          <Link to="/admin/analitika" className="dashboard-layout__logo" onClick={closeNav}>
             MySkin <span>Code</span>
           </Link>
+          <span className="dashboard-layout__admin-badge">Admin</span>
           <button
             type="button"
             className="dashboard-layout__close-nav"
@@ -129,15 +95,12 @@ function DashboardShell() {
 
         <div className="dashboard-layout__sidebar-footer">
           <Link to="/" className="dashboard-layout__home-link" onClick={closeNav}>
-            ← Početna stranica
+            ← Javna stranica
           </Link>
           <div className="dashboard-layout__user">
-            <div className="dashboard-layout__user-avatar" aria-hidden="true">
-              {getInitials(displayName)}
-            </div>
             <div className="dashboard-layout__user-info">
-              <span className="dashboard-layout__user-name">{displayName}</span>
-              <span className="dashboard-layout__user-email">{user?.email}</span>
+              <span className="dashboard-layout__user-name">Administrator</span>
+              <span className="dashboard-layout__user-email">{session?.email}</span>
             </div>
           </div>
           <button type="button" className="dashboard-layout__logout" onClick={handleLogout}>
@@ -172,7 +135,7 @@ function DashboardShell() {
               />
             </svg>
           </button>
-          <span className="dashboard-layout__topbar-title">Dashboard</span>
+          <span className="dashboard-layout__topbar-title">Admin</span>
         </header>
 
         <main className="dashboard-layout__content">
@@ -180,13 +143,5 @@ function DashboardShell() {
         </main>
       </div>
     </div>
-  );
-}
-
-export default function DashboardLayout() {
-  return (
-    <DashboardProfileProvider>
-      <DashboardShell />
-    </DashboardProfileProvider>
   );
 }

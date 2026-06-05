@@ -32,6 +32,36 @@ export type UserProfile = {
   subscriptionExpiresAt?: string | null;
 };
 
+function normalizeSubscriptionExpiresAt(value: unknown): string | null {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed || null;
+  }
+  if (typeof value === "number" && Number.isFinite(value)) {
+    const ms = value < 1e12 ? value * 1000 : value;
+    const date = new Date(ms);
+    return Number.isNaN(date.getTime()) ? null : date.toISOString();
+  }
+  return null;
+}
+
+export function formatSubscriptionExpiresAt(
+  raw: string | null | undefined,
+): string | null {
+  if (!raw?.trim()) return null;
+
+  const parsed = Date.parse(raw);
+  if (Number.isNaN(parsed)) {
+    return raw.trim();
+  }
+
+  return new Intl.DateTimeFormat("hr-HR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(parsed));
+}
+
 function asString(value: unknown): string | null {
   if (typeof value !== "string") return null;
   const trimmed = value.trim();
@@ -98,13 +128,11 @@ export function normalizeUserProfile(raw: unknown): UserProfile {
   const subscriptionExpiresAt = findNestedValue(parsed, [
     "subscriptionExpiresAt",
     "subscription_expires_at",
+    "subscriptionExpires",
+    "expiresAt",
   ]);
 
-  const expires =
-    typeof subscriptionExpiresAt === "string" &&
-    subscriptionExpiresAt.trim()
-      ? subscriptionExpiresAt.trim()
-      : null;
+  const expires = normalizeSubscriptionExpiresAt(subscriptionExpiresAt);
 
   return {
     name: asString(userRecord.name),
