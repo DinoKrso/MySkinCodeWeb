@@ -1,7 +1,7 @@
 import type { Plugin } from "vite";
 import { loadEnv } from "vite";
-import { fetchProductsCountFromUpstream } from "../api/lib/admin-products-count.js";
-import { fetchUsersCountFromUpstream } from "../api/lib/admin-users-count.js";
+import { fetchProductsCountFromUpstream } from "../server/api-lib/admin-products-count.js";
+import { fetchUsersCountFromUpstream } from "../server/api-lib/admin-users-count.js";
 
 const USERS_COUNT_PATH = "/api/admin/users-count";
 const PRODUCTS_COUNT_PATH = "/api/admin/products-count";

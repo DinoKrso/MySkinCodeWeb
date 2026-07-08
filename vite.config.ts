@@ -6,7 +6,7 @@ import { forgotPasswordPlugin } from "./server/vite-forgot-password-plugin";
 import { adminUsersCountPlugin } from "./server/vite-admin-users-count-plugin";
 import { adminProductsPlugin } from "./server/vite-admin-products-plugin";
 import { adminProductImagePlugin } from "./server/vite-admin-product-image-plugin";
-import { apiTargets } from "./api/lib/api-targets";
+import { apiTargets } from "./server/api-lib/api-targets";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {

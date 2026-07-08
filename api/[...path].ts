@@ -1,18 +1,18 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { createProductUpstream } from "./lib/admin-create-product.js";
-import { uploadProductImageUpstream } from "./lib/admin-product-image-upload.js";
-import type { ImageUploadRequest } from "./lib/admin-product-image-upload.js";
-import { fetchProductsCountFromUpstream } from "./lib/admin-products-count.js";
-import { fetchUsersCountFromUpstream } from "./lib/admin-users-count.js";
+import { createProductUpstream } from "../server/api-lib/admin-create-product.js";
+import { uploadProductImageUpstream } from "../server/api-lib/admin-product-image-upload.js";
+import type { ImageUploadRequest } from "../server/api-lib/admin-product-image-upload.js";
+import { fetchProductsCountFromUpstream } from "../server/api-lib/admin-products-count.js";
+import { fetchUsersCountFromUpstream } from "../server/api-lib/admin-users-count.js";
 import {
   handleForgotPasswordRequest,
   loadForgotPasswordEnv,
-} from "./lib/forgot-password-handler.js";
+} from "../server/api-lib/forgot-password-handler.js";
 import {
   handleResetPasswordRequest,
   handleValidateResetTokenRequest,
   loadResetPasswordEnv,
-} from "./lib/reset-password-handler.js";
+} from "../server/api-lib/reset-password-handler.js";
 
 function getRoutePath(req: VercelRequest): string {
   const segments = req.query.path;

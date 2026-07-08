@@ -1,6 +1,6 @@
 import type { Plugin } from "vite";
 import { loadEnv } from "vite";
-import { createProductUpstream } from "../api/lib/admin-create-product.js";
+import { createProductUpstream } from "../server/api-lib/admin-create-product.js";
 
 const PRODUCTS_PATH = "/api/admin/products";
 

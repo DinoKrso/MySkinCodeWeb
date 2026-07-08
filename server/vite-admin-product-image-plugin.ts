@@ -3,7 +3,7 @@ import { loadEnv } from "vite";
 import {
   uploadProductImageUpstream,
   type ImageUploadRequest,
-} from "../api/lib/admin-product-image-upload.js";
+} from "../server/api-lib/admin-product-image-upload.js";
 
 const UPLOAD_PATH = "/api/admin/product-image-upload";
 

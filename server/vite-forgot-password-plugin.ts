@@ -3,12 +3,12 @@ import { loadEnv } from "vite";
 import {
   handleForgotPasswordRequest,
   loadForgotPasswordEnv,
-} from "../api/lib/forgot-password-handler.js";
+} from "../server/api-lib/forgot-password-handler.js";
 import {
   handleResetPasswordRequest,
   handleValidateResetTokenRequest,
   loadResetPasswordEnv,
-} from "../api/lib/reset-password-handler.js";
+} from "../server/api-lib/reset-password-handler.js";
 
 const FORGOT_PASSWORD_PATH = "/api/forgot-password";
 const VALIDATE_RESET_TOKEN_PATH = "/api/reset-password/validate";
