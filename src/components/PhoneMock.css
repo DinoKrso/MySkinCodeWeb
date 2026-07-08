@@ -1,0 +1,93 @@
+.phone-mock {
+  position: relative;
+  flex-shrink: 0;
+  width: 224px;
+  height: 448px;
+  border: 7.5px solid rgba(26, 26, 26, 0.05);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    117deg,
+    #f0ece4 0%,
+    #ede9e2 33%,
+    #ebe7df 66%,
+    #e8e4dd 100%
+  );
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.phone-mock--hero {
+  width: 280px;
+  height: 560px;
+  border-width: 15px;
+  border-color: rgba(255, 255, 255, 0.6);
+  border-radius: 3.5rem;
+  box-shadow: 0 32px 96px rgba(0, 0, 0, 0.2);
+}
+
+.phone-mock--download {
+  width: min(100%, 300px);
+  height: auto;
+  aspect-ratio: 1 / 2;
+  border-width: 12px;
+  border-color: rgba(255, 255, 255, 0.85);
+  border-radius: 3rem;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.14),
+    0 0 0 1px rgba(201, 179, 130, 0.15);
+}
+
+.phone-mock--compact {
+  width: clamp(7.5rem, 22vw, 11.5rem);
+  height: auto;
+  aspect-ratio: 1 / 2;
+  border-width: 8px;
+  border-color: rgba(255, 255, 255, 0.9);
+  border-radius: 1.75rem;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(201, 179, 130, 0.12);
+}
+
+.phone-mock__screen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.phone-mock__screen--placeholder {
+  height: 100%;
+  background: linear-gradient(
+    160deg,
+    #f5f1ea 0%,
+    #ebe6dd 45%,
+    #e4dfd6 100%
+  );
+}
+
+.phone-mock__notch {
+  position: absolute;
+  top: 0.65rem;
+  left: 50%;
+  width: 28%;
+  height: 1.35rem;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(26, 26, 26, 0.08);
+}
+
+.phone-mock--hero .phone-mock__notch,
+.phone-mock--download .phone-mock__notch,
+.phone-mock--compact .phone-mock__notch {
+  top: 0.85rem;
+  height: 1.5rem;
+  background: rgba(26, 26, 26, 0.12);
+}
+
+.phone-mock--compact .phone-mock__notch {
+  top: 0.5rem;
+  width: 32%;
+  height: 0.85rem;
+}

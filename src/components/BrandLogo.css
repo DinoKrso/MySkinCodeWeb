@@ -1,0 +1,8 @@
+.brand-logo {
+  font-weight: var(--font-weight-medium);
+  color: #1a1a1a;
+}
+
+.brand-logo__accent {
+  color: var(--color-gold);
+}

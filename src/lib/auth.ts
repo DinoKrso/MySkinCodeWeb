@@ -162,3 +162,28 @@ export function getAuthHeaders(
     "X-User-Id": userId,
   };
 }
+
+export async function deleteUserAccount(
+  token: string,
+  userId: string,
+): Promise<void> {
+  const url = `${endpoints.deleteUser}?userId=${encodeURIComponent(userId)}`;
+  let response: Response;
+
+  try {
+    response = await fetch(url, {
+      method: "DELETE",
+      headers: getAuthHeaders(token, userId),
+      body: JSON.stringify({ userId, userID: userId }),
+    });
+  } catch (err) {
+    throw wrapFetchError(err, "Brisanje računa nije uspjelo.");
+  }
+
+  const raw = await readJsonResponse(response);
+  const parsed = parseApiBody(raw);
+
+  if (!response.ok) {
+    throw new Error(getErrorMessage(parsed, "Brisanje računa nije uspjelo."));
+  }
+}

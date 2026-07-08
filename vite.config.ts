@@ -1,5 +1,7 @@
+import path from "node:path";
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import { forgotPasswordPlugin } from "./server/vite-forgot-password-plugin";
 import { adminUsersCountPlugin } from "./server/vite-admin-users-count-plugin";
 import { adminProductsPlugin } from "./server/vite-admin-products-plugin";
@@ -13,12 +15,18 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
+      tailwindcss(),
       forgotPasswordPlugin(),
       adminUsersCountPlugin(),
       adminProductsPlugin(),
       adminProductImagePlugin(),
     ],
     envPrefix: ["VITE_", "EXPO_PUBLIC_"],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
     server: {
       proxy: {
         "/api/login": {
@@ -48,6 +56,11 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (path) =>
             path.replace(/^\/api\/user-profile\/?$/, "/user/profile"),
+        },
+        "/api/delete-user": {
+          target: apiTargets.userProfileApi,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/delete-user/, "/user"),
         },
         "/api/profile-api": {
           target: apiTargets.profileApi,

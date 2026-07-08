@@ -1,0 +1,16 @@
+.app-handoff__status {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.app-handoff__btn {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}

@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { login, loginWithFirebaseToken } from "../lib/auth";
+import { sanitizeRedirectPath } from "../lib/app-handoff";
 import { getMissingFirebaseEnvKeys, isFirebaseConfigured, signInWithGoogle } from "../lib/firebase";
 import PageShell from "../layouts/PageShell";
 import "./LoginPage.css";
@@ -47,9 +48,13 @@ export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const planParam = searchParams.get("plan");
   const billingParam = searchParams.get("billing");
-  const defaultReturn = planParam
+  const redirectParam = searchParams.get("redirect");
+  const planReturn = planParam
     ? `/plans?plan=${encodeURIComponent(planParam)}${billingParam ? `&billing=${encodeURIComponent(billingParam)}` : ""}`
     : "/plans";
+  const defaultReturn = redirectParam
+    ? sanitizeRedirectPath(redirectParam)
+    : planReturn;
 
   const returnTo =
     (location.state as { from?: string } | null)?.from ?? defaultReturn;

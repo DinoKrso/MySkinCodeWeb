@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Afacad", system-ui, -apple-system, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-heading: "Afacad", system-ui, -apple-system, sans-serif;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+
+  --color-background: #faf9f7;
+  --color-foreground: #1a1a1a;
+  --color-card: #ffffff;
+  --color-card-foreground: #1a1a1a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #1a1a1a;
+  --color-primary: #c9b382;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f0ece4;
+  --color-secondary-foreground: #1a1a1a;
+  --color-muted: #f5f3f0;
+  --color-muted-foreground: rgba(26, 26, 26, 0.7);
+  --color-accent: rgba(201, 179, 130, 0.12);
+  --color-accent-foreground: #1a1a1a;
+  --color-destructive: #dc2626;
+  --color-border: #e8e4dd;
+  --color-input: #e8e4dd;
+  --color-ring: #c9b382;
+}
+
+:root {
+  --background: #faf9f7;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #c9b382;
+  --primary-foreground: #ffffff;
+  --secondary: #f0ece4;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f5f3f0;
+  --muted-foreground: rgba(26, 26, 26, 0.7);
+  --accent: rgba(201, 179, 130, 0.12);
+  --accent-foreground: #1a1a1a;
+  --destructive: #dc2626;
+  --border: #e8e4dd;
+  --input: #e8e4dd;
+  --ring: #c9b382;
+  --radius: 0.625rem;
+}

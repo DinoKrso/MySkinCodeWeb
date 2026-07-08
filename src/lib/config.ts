@@ -4,6 +4,9 @@ const DEFAULT_API_BASE =
 const DEFAULT_USER_PROFILE_ENDPOINT =
   "https://4uyux7zjrf.execute-api.eu-central-1.amazonaws.com/dev/user/profile";
 
+const DEFAULT_DELETE_USER_ENDPOINT =
+  "https://4uyux7zjrf.execute-api.eu-central-1.amazonaws.com/dev/user";
+
 const DEFAULT_PROFILE_API_BASE =
   "https://2gajkkmi0d.execute-api.eu-central-1.amazonaws.com/dev";
 
@@ -11,6 +14,7 @@ const DEFAULT_PROFILE_API_BASE =
 const LOGIN_PROXY = "/api/login";
 const CHECK_EMAIL_PROXY = "/api/check-email";
 const USER_PROFILE_PROXY = "/api/user-profile";
+const DELETE_USER_PROXY = "/api/delete-user";
 const PROFILE_API_PROXY = "/api/profile-api";
 const FIREBASE_AUTH_PROXY = "/api/firebase-auth";
 const FIREBASE_SIGNUP_PROXY = "/api/firebase-signup";
@@ -53,6 +57,13 @@ function resolveUserProfileEndpoint(): string {
     import.meta.env.VITE_USER_PROFILE_ENDPOINT ??
     import.meta.env.VITE_PROFILE_FETCH_URL ??
     DEFAULT_USER_PROFILE_ENDPOINT
+  );
+}
+
+function resolveDeleteUserEndpoint(): string {
+  if (useSameOriginProxy()) return DELETE_USER_PROXY;
+  return (
+    import.meta.env.VITE_DELETE_USER_ENDPOINT ?? DEFAULT_DELETE_USER_ENDPOINT
   );
 }
 
@@ -109,6 +120,7 @@ const ADMIN_PRODUCT_IMAGE_UPLOAD_PROXY = "/api/admin/product-image-upload";
 export const endpoints = {
   login: resolveLoginEndpoint(),
   userProfile: resolveUserProfileEndpoint(),
+  deleteUser: resolveDeleteUserEndpoint(),
   profileApiBase: resolveProfileApiBase(),
   firebaseAuthExchange: resolveFirebaseAuthExchange(),
   firebaseSignup: resolveFirebaseSignup(),

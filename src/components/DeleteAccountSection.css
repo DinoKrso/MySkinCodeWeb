@@ -1,0 +1,137 @@
+.delete-account {
+  margin: 0;
+  padding-top: 1.25rem;
+  text-align: center;
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.delete-account__trigger {
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-subtle);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  transition:
+    color 0.2s,
+    text-decoration-color 0.2s;
+}
+
+.delete-account__trigger:hover {
+  color: #8b2e2e;
+  text-decoration-color: rgba(139, 46, 46, 0.45);
+}
+
+.delete-account__trigger:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.delete-account-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(26, 26, 26, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.delete-account-modal__dialog {
+  width: min(100%, 26rem);
+  padding: 1.75rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 48px rgba(26, 26, 26, 0.12);
+}
+
+.delete-account-modal__title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-body);
+  font-size: 1.375rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.delete-account-modal__title--success {
+  color: #1a6b3c;
+}
+
+.delete-account-modal__text {
+  margin: 0 0 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.delete-account-modal__checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.delete-account-modal__checkbox input {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15rem;
+  accent-color: #8b2e2e;
+  cursor: pointer;
+}
+
+.delete-account-modal__checkbox input:disabled {
+  cursor: not-allowed;
+}
+
+.delete-account-modal__error {
+  margin-bottom: 1rem;
+}
+
+.delete-account-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.delete-account-modal__btn {
+  width: 100%;
+  margin-top: 0;
+}
+
+.delete-account-modal__btn--confirm {
+  padding: 0.875rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  color: #fff;
+  background: #8b2e2e;
+  border: 1px solid #8b2e2e;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.delete-account-modal__btn--confirm:hover:not(:disabled) {
+  background: #742626;
+  border-color: #742626;
+}
+
+.delete-account-modal__btn--confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

@@ -15,7 +15,9 @@ export type PricingPlan = {
   /** Iznos uštede (npr. "24 KM"). */
   annualSavings?: string | null;
   featured: boolean;
+  /** Samo nove funkcije; ako je `includesPlanId` postavljen, UI prikazuje i sve iz prethodnog paketa. */
   features: readonly string[];
+  includesPlanId?: string;
   /** Paid plans redirect here; basic may be empty until configured. */
   requiresCheckout: boolean;
 };
@@ -47,12 +49,11 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
     annualSavings: "24 KM",
     featured: true,
     requiresCheckout: true,
+    includesPlanId: "basic",
     features: [
       "5 mjesečnih analiza lica",
-      "Barkod skener proizvoda",
       "Ključne metrike kože",
       "Detaljna analiza",
-      "Dnevnik analiza",
     ],
   },
   {
@@ -66,21 +67,43 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
     annualSavings: "48 KM",
     featured: false,
     requiresCheckout: true,
+    includesPlanId: "plus",
     features: [
       "Neograničena skeniranja lica",
       "Preporučeni proizvodi",
-      "Ključne metrike kože",
-      "Detaljna analiza",
       "Preporučena rutina",
       "Pokretanje personalizirane rutine",
       "Dnevno praćenje rutine",
       "Kalendar i graf napretka",
       "Prilagodba rutine na osnovu tretmana",
-      "Barkod skener proizvoda",
-      "Dnevnik analiza",
     ],
   },
 ] as const;
+
+export type PlanFeatureItem =
+  | { kind: "includes"; planName: string; key: string }
+  | { kind: "feature"; text: string };
+
+export function getPlanFeatureItems(plan: PricingPlan): PlanFeatureItem[] {
+  const items: PlanFeatureItem[] = [];
+
+  if (plan.includesPlanId) {
+    const parent = PRICING_PLANS.find((p) => p.id === plan.includesPlanId);
+    if (parent) {
+      items.push({
+        kind: "includes",
+        key: `includes-${plan.includesPlanId}`,
+        planName: parent.name,
+      });
+    }
+  }
+
+  for (const text of plan.features) {
+    items.push({ kind: "feature", text });
+  }
+
+  return items;
+}
 
 export function getPlanPriceDisplay(
   plan: PricingPlan,

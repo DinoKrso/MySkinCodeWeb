@@ -41,27 +41,48 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 2.5rem 2rem;
-  background: var(--color-white);
-  border: 1px solid rgba(232, 228, 221, 0.5);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  min-height: 0;
 }
 
-.pricing-plans-card--featured {
+.pricing-plans-card__shell {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  perspective: 1000px;
+  perspective-origin: center center;
+}
+
+.pricing-plans-card__face {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.5rem 2rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  border: 1px solid rgba(232, 228, 221, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform-origin: center center;
+}
+
+.pricing-plans-card--featured .pricing-plans-card__face {
   border-color: rgba(201, 179, 130, 0.4);
   box-shadow:
     0 0 0 0 rgba(201, 179, 130, 0.2),
     0 4px 25px rgba(0, 0, 0, 0.06);
+}
+
+.pricing-plans-card--featured {
   transform: scale(1.02);
 }
 
-.pricing-plans-card--highlight {
+.pricing-plans-card--highlight .pricing-plans-card__face {
   outline: 2px solid var(--color-gold);
   outline-offset: 2px;
 }
 
-.pricing-plans-card--current {
+.pricing-plans-card--current .pricing-plans-card__face {
   border-color: rgba(201, 179, 130, 0.55);
   box-shadow:
     0 0 0 1px rgba(201, 179, 130, 0.2),
@@ -113,7 +134,6 @@
   flex-direction: column;
   gap: 0.75rem;
   flex: 1;
-  min-height: 11.75rem;
   margin: 1.5rem 0 0;
   padding: 0;
   list-style: none;
@@ -125,6 +145,11 @@
   gap: 0.75rem;
   font-size: 0.875rem;
   color: rgba(26, 26, 26, 0.8);
+}
+
+.pricing-plans-card__features-item--includes {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
 }
 
 .pricing-plans-card__check {

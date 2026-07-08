@@ -21,6 +21,10 @@
       "destination": "https://4uyux7zjrf.execute-api.eu-central-1.amazonaws.com/dev/user/profile"
     },
     {
+      "source": "/api/delete-user",
+      "destination": "https://4uyux7zjrf.execute-api.eu-central-1.amazonaws.com/dev/user"
+    },
+    {
       "source": "/api/profile-api/:path*",
       "destination": "https://2gajkkmi0d.execute-api.eu-central-1.amazonaws.com/dev/:path*"
     },

@@ -8,6 +8,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 import { DashboardProfileProvider, useDashboardProfile } from "../context/DashboardProfileContext";
 import { formatSubscriptionExpiresAt } from "../lib/profile";
+import DeleteAccountSection from "../components/DeleteAccountSection";
 import PageShell from "../layouts/PageShell";
 import "./AccountPage.css";
 
@@ -101,17 +102,19 @@ function AccountContent() {
           )}
 
           <div className="account-page__actions">
-            <Link to="/plans" className="ui-btn-secondary account-page__btn">
+            <Link to="/plans" className="ui-btn-primary account-page__btn">
               Promijeni paket
             </Link>
             <button
               type="button"
-              className="ui-btn-primary account-page__btn account-page__btn--logout"
+              className="account-page__btn account-page__btn--logout"
               onClick={handleLogout}
             >
               Odjava
             </button>
           </div>
+
+          <DeleteAccountSection />
 
           <Link to="/" className="ui-link-back">
             ← Natrag na početnu
