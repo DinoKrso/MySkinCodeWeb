@@ -33,6 +33,38 @@
       "destination": "https://c0cpdmd5ug.execute-api.eu-central-1.amazonaws.com/dev/routine/active"
     },
     {
+      "source": "/api/forgot-password",
+      "destination": "/api/handler?path=forgot-password"
+    },
+    {
+      "source": "/api/reset-password/validate",
+      "destination": "/api/handler?path=reset-password/validate"
+    },
+    {
+      "source": "/api/reset-password",
+      "destination": "/api/handler?path=reset-password"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/handler?path=health"
+    },
+    {
+      "source": "/api/admin/users-count",
+      "destination": "/api/handler?path=admin/users-count"
+    },
+    {
+      "source": "/api/admin/products-count",
+      "destination": "/api/handler?path=admin/products-count"
+    },
+    {
+      "source": "/api/admin/products",
+      "destination": "/api/handler?path=admin/products"
+    },
+    {
+      "source": "/api/admin/product-image-upload",
+      "destination": "/api/handler?path=admin/product-image-upload"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

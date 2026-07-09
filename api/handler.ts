@@ -14,15 +14,44 @@ import {
   loadResetPasswordEnv,
 } from "../server/api-lib/reset-password-handler.js";
 
-function getRoutePath(req: VercelRequest): string {
-  const segments = req.query.path;
-  if (Array.isArray(segments)) {
-    return segments.map((segment) => String(segment)).join("/");
+function readPathQuery(value: unknown): string {
+  if (Array.isArray(value) && value.length > 0) {
+    return value.map(String).filter(Boolean).join("/");
   }
-  if (typeof segments === "string" && segments.trim()) {
-    return segments.trim();
+  if (typeof value === "string" && value.trim()) {
+    return value.trim();
   }
   return "";
+}
+
+function readPathFromUrl(req: VercelRequest): string {
+  const raw = req.url;
+  if (!raw) return "";
+
+  try {
+    const host = req.headers.host ?? "localhost";
+    const url = new URL(raw, `https://${host}`);
+    const match = url.pathname.match(/\/api\/(.+)$/);
+    if (match?.[1]) {
+      return decodeURIComponent(match[1]);
+    }
+  } catch {
+    const pathname = raw.split("?")[0] ?? "";
+    const match = pathname.match(/\/api\/(.+)$/);
+    if (match?.[1]) {
+      return decodeURIComponent(match[1]);
+    }
+  }
+
+  return "";
+}
+
+function getRoutePath(req: VercelRequest): string {
+  return (
+    readPathQuery(req.query.path) ||
+    readPathQuery(req.query.route) ||
+    readPathFromUrl(req)
+  );
 }
 
 function sendForgotPasswordConfigError(res: VercelResponse): void {
