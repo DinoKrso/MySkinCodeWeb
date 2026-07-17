@@ -1,8 +1,6 @@
+/* Visina prati font-size elementa, pa se logo skalira kroz font-size */
 .brand-logo {
-  font-weight: var(--font-weight-medium);
-  color: #1a1a1a;
-}
-
-.brand-logo__accent {
-  color: var(--color-gold);
+  display: inline-block;
+  height: 1em;
+  width: auto;
 }

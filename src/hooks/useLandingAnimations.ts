@@ -8,6 +8,10 @@ function getCarouselMaxScroll(carousel: HTMLElement) {
   return Math.max(0, carousel.scrollWidth - carousel.clientWidth);
 }
 
+/** Dok GSAP pomiče karusel, ScrollTrigger snap mora stati. */
+let carouselProgrammaticScroll = false;
+let carouselScrollTween: gsap.core.Tween | null = null;
+
 export function useLandingAnimations(
   carouselRef: RefObject<HTMLDivElement | null>,
   onCarouselStepChange?: (index: number) => void,
@@ -78,20 +82,24 @@ export function useLandingAnimations(
             });
           });
 
-        ScrollTrigger.batch(".landing-feature-card", {
-          interval: 0.08,
-          batchMax: 6,
-          start: "top 90%",
-          onEnter: (batch) => {
-            gsap.from(batch, {
-              y: 40,
-              autoAlpha: 0,
-              duration: 0.65,
-              stagger: 0.08,
-              ease: "power2.out",
-              overwrite: true,
-            });
-          },
+        // Feature kartice — samo desktop; batch + gsap.from na mobitelu često glitcha
+        mm.add("(min-width: 769px)", () => {
+          ScrollTrigger.batch(".landing-feature-card", {
+            interval: 0.08,
+            batchMax: 6,
+            start: "top 90%",
+            once: true,
+            onEnter: (batch) => {
+              gsap.from(batch, {
+                y: 40,
+                autoAlpha: 0,
+                duration: 0.65,
+                stagger: 0.08,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            },
+          });
         });
 
         gsap.from(".landing-cta__text > *", {
@@ -159,11 +167,20 @@ export function useLandingAnimations(
             horizontal: true,
             snap: {
               snapTo: (value) => {
+                if (carouselProgrammaticScroll) return value;
+
                 const maxScroll = getCarouselMaxScroll(carousel);
                 if (maxScroll <= 0) return 0;
 
-                const snapPoints = slides.map(
-                  (slide) => slide.offsetLeft / maxScroll,
+                const paddingLeft = Number.parseFloat(
+                  getComputedStyle(carousel).paddingLeft,
+                );
+                const snapPoints = slides.map((slide) =>
+                  gsap.utils.clamp(
+                    0,
+                    1,
+                    (slide.offsetLeft - paddingLeft) / maxScroll,
+                  ),
                 );
 
                 return snapPoints.reduce((closest, point) =>
@@ -309,21 +326,51 @@ export function useLandingAnimations(
 export function animateCarouselToStep(
   carousel: HTMLElement,
   index: number,
+  _fromIndex?: number,
 ) {
-  const slide = carousel.children[index] as HTMLElement | undefined;
-  if (!slide) return;
+  const toSlide = carousel.children[index] as HTMLElement | undefined;
+  if (!toSlide) return;
 
   const paddingLeft = Number.parseFloat(getComputedStyle(carousel).paddingLeft);
   const maxScroll = getCarouselMaxScroll(carousel);
   const target = Math.min(
     maxScroll,
-    Math.max(0, slide.offsetLeft - paddingLeft),
+    Math.max(0, toSlide.offsetLeft - paddingLeft),
   );
 
-  gsap.to(carousel, {
-    scrollLeft: target,
-    duration: 0.75,
+  if (Math.abs(target - carousel.scrollLeft) < 1) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    carousel.scrollLeft = target;
+    return;
+  }
+
+  // Proxy objekt — GSAP pouzdano animira scroll (direktni scrollLeft često ne radi
+  // uz CSS scroll-snap / ScrollTrigger scrollerProxy).
+  const proxy = { x: carousel.scrollLeft };
+  carouselScrollTween?.kill();
+
+  carouselProgrammaticScroll = true;
+  carousel.style.scrollSnapType = "none";
+
+  carouselScrollTween = gsap.to(proxy, {
+    x: target,
+    duration: 0.85,
     ease: "power3.inOut",
     overwrite: true,
+    onUpdate: () => {
+      carousel.scrollLeft = proxy.x;
+    },
+    onComplete: () => {
+      carousel.scrollLeft = target;
+      carousel.style.scrollSnapType = "";
+      carouselProgrammaticScroll = false;
+      carouselScrollTween = null;
+    },
+    onInterrupt: () => {
+      carousel.style.scrollSnapType = "";
+      carouselProgrammaticScroll = false;
+      carouselScrollTween = null;
+    },
   });
 }

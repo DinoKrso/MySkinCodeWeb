@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import type { ReactNode } from "react";
 import { useAuth } from "../context/AuthContext";
-import BrandLogo from "./BrandLogo";
+import logoUrl from "../assets/MySkin Code.svg";
 import "./LandingHeader.css";
 
 const NAV_LINKS = [
@@ -52,7 +52,11 @@ export default function LandingHeader() {
     <header className="landing-header">
       <div className="landing-header__inner-wrap landing-header__inner">
         <Link to="/" className="landing-header__logo">
-          <BrandLogo />
+          <img
+            src={logoUrl}
+            alt="MySkin Code"
+            className="landing-header__logo-img"
+          />
         </Link>
 
         <nav className="landing-header__nav" aria-label="Glavna navigacija">

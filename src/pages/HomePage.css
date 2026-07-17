@@ -252,11 +252,10 @@
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   scroll-padding-inline-start: var(--how-slide-inset);
   padding: 0 0 1rem var(--how-slide-inset);
-  /* prostor da zadnja kartica poravna na isti lijevi inset */
-  padding-right: calc(100vw - var(--how-slide-inset) - var(--how-slide-width));
+  /* prostor tako da zadnja kartica završi centrirana u viewportu */
+  padding-right: calc((100vw - var(--how-slide-width)) / 2);
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -266,12 +265,14 @@
 }
 
 .landing-how__slide {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 0 0 var(--how-slide-width);
   width: var(--how-slide-width);
   height: var(--how-slide-height);
   box-sizing: border-box;
+  overflow: hidden;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   transform-origin: center center;
@@ -286,6 +287,71 @@
     #faf9f7 100%
   );
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Media layer — na desktopu absolute pozadina / nagnuti telefon */
+.landing-how__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* Fotografija u pozadini slajda (Figma percent pozicioniranje) */
+.landing-how__photo {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.landing-how__photo picture {
+  display: contents;
+}
+
+.landing-how__photo img {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* Nagnuti telefon — samo prvi slajd (Figma 371.756x743.545, rotate 18.39deg) */
+.landing-how__tilted-phone {
+  position: absolute;
+  left: calc(928px * var(--how-slide-scale));
+  top: 50%;
+  width: calc(371.756px * var(--how-slide-scale));
+  height: calc(743.545px * var(--how-slide-scale));
+  transform: translate(-50%, -50%) rotate(18.39deg);
+  box-sizing: border-box;
+  border: calc(7.5px * var(--how-slide-scale)) solid rgba(26, 26, 26, 0.05);
+  border-radius: calc(32px * var(--how-slide-scale));
+  background: linear-gradient(
+    117deg,
+    #f0ece4 0%,
+    #ede9e2 33%,
+    #ebe7df 66%,
+    #e8e4dd 100%
+  );
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.landing-how__slide-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.landing-how__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .landing-how__step-label {
@@ -305,33 +371,159 @@
   letter-spacing: 0;
 }
 
-.landing-how__slide p:not(.landing-how__step-label) {
-  margin: 0 0 calc(2rem * var(--how-slide-scale));
-  max-width: calc(28rem * var(--how-slide-scale));
+.landing-how__desc {
+  margin: 0;
+  width: calc(409px * var(--how-slide-scale));
+  max-width: 100%;
   font-size: calc(18px * var(--how-slide-scale));
   font-weight: var(--font-weight-regular);
-  line-height: calc(29.25px * var(--how-slide-scale));
+  line-height: calc(24px * var(--how-slide-scale));
   letter-spacing: 0;
   color: var(--landing-text-muted);
 }
 
-.landing-how__phone {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+.landing-how__note {
+  display: inline-flex;
   align-items: center;
-  min-height: 0;
+  margin-top: calc(48px * var(--how-slide-scale));
+  padding: calc(2px * var(--how-slide-scale)) calc(10px * var(--how-slide-scale));
+  font-size: calc(12px * var(--how-slide-scale));
+  font-style: italic;
+  line-height: calc(14px * var(--how-slide-scale));
+  color: #fff;
+  background: var(--color-gold);
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
-.landing-how__phone .landing-phone-mock {
-  transform-origin: center bottom;
+.landing-how__badges {
+  display: flex;
+  align-items: center;
+  gap: calc(1rem * var(--how-slide-scale));
+  margin-top: calc(24px * var(--how-slide-scale));
 }
 
-.landing-how__phone .phone-mock {
-  width: calc(223.984375px * var(--how-slide-scale));
-  height: calc(447.98828125px * var(--how-slide-scale));
-  border-width: calc(7.5px * var(--how-slide-scale));
-  border-radius: calc(32px * var(--how-slide-scale));
+.landing-how__badges img {
+  display: block;
+  width: calc(139px * var(--how-slide-scale));
+  height: calc(40px * var(--how-slide-scale));
+}
+
+/* Figma export Google Play badgea je spremljen naopako */
+.landing-how__badges img[src*="google-play"] {
+  transform: scaleY(-1);
+}
+
+/* 2x2 mini feature kartice unutar slajda */
+.landing-how__cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(10px * var(--how-slide-scale)) calc(18px * var(--how-slide-scale));
+  width: calc(464px * var(--how-slide-scale));
+  max-width: 100%;
+  margin-top: auto;
+}
+
+.landing-how-card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(9px * var(--how-slide-scale));
+  min-height: calc(150px * var(--how-slide-scale));
+  box-sizing: border-box;
+  padding: calc(17px * var(--how-slide-scale));
+  background: #fff;
+  border: 1.25px solid #ebe7df;
+  border-radius: calc(16px * var(--how-slide-scale));
+}
+
+.landing-how-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(32px * var(--how-slide-scale));
+  height: calc(32px * var(--how-slide-scale));
+}
+
+.landing-how-card__icon > img {
+  width: 100%;
+  height: 100%;
+}
+
+.landing-how-card__icon--circled {
+  background: #f7f6f4;
+  border-radius: 999px;
+}
+
+.landing-how-card__icon--circled > img {
+  width: auto;
+  height: auto;
+}
+
+.landing-how-card__scan {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(7.5px * var(--how-slide-scale));
+  width: calc(13.8px * var(--how-slide-scale));
+  height: calc(12.7px * var(--how-slide-scale));
+}
+
+.landing-how-card__scan img {
+  width: calc(4.1px * var(--how-slide-scale));
+  height: calc(4.1px * var(--how-slide-scale));
+}
+
+.landing-how-card h4 {
+  margin: 0;
+  font-size: calc(16px * var(--how-slide-scale));
+  font-weight: var(--font-weight-medium);
+  line-height: calc(24px * var(--how-slide-scale));
+  color: #000;
+}
+
+.landing-how-card p {
+  margin: 0;
+  font-size: calc(12px * var(--how-slide-scale));
+  line-height: calc(14px * var(--how-slide-scale));
+  color: #666;
+}
+
+.landing-how__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.landing-how__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  color: var(--landing-text-muted);
+  background: #fff;
+  border: 1px solid var(--landing-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.landing-how__arrow svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.landing-how__arrow:hover:not(:disabled) {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-soft);
+}
+
+.landing-how__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .landing-how__dots {
@@ -339,13 +531,6 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 1.25rem;
-}
-
-@media (max-width: 640px) {
-  .landing-how {
-    --how-slide-inset: 1.25rem;
-  }
 }
 
 .landing-how__dot {
@@ -362,6 +547,183 @@
 .landing-how__dot--active {
   width: 32px;
   background: var(--color-gold);
+}
+
+/* How it works — mobile: kompaktan karusel (vizual → copy → chip kartice) */
+@media (max-width: 768px) {
+  .landing-how {
+    --how-slide-gap: 0.75rem;
+    --how-slide-inset: 1.25rem;
+    --how-slide-width: calc(100vw - 2.75rem);
+    --how-slide-height: auto;
+    --how-slide-scale: 1;
+    padding: 1.75rem 0 1rem;
+  }
+
+  .landing-how .landing-section-head {
+    margin-bottom: 1rem;
+  }
+
+  .landing-how .landing-section-head p {
+    max-width: 20rem;
+    margin-inline: auto;
+    font-size: 0.9375rem;
+  }
+
+  .landing-how__carousel {
+    padding-bottom: 0.25rem;
+    padding-right: calc(100vw - var(--how-slide-width) - var(--how-slide-inset));
+  }
+
+  .landing-how__slide {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: 0;
+    gap: 1rem;
+    padding: 1.125rem 1.125rem 1.25rem;
+    border-radius: 1.25rem;
+  }
+
+  .landing-how__media {
+    position: relative;
+    inset: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 14rem;
+    overflow: hidden;
+    border-radius: 0.875rem;
+    background: transparent;
+  }
+
+  .landing-how__photo {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .landing-how__photo img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  /* Korak 2 — malo približi mobile screenshot */
+  .landing-how__slide--zoom-media .landing-how__photo img {
+    object-fit: cover;
+    transform: scale(1.35);
+    transform-origin: center center;
+  }
+
+  .landing-how__tilted-phone {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 6.75rem;
+    height: 13.5rem;
+    border-width: 5px;
+    border-radius: 1.15rem;
+    transform: rotate(12deg);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+  }
+
+  .landing-how__slide-content {
+    height: auto;
+    gap: 0.875rem;
+  }
+
+  .landing-how__step-label {
+    margin-bottom: 0.35rem;
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .landing-how__slide h3 {
+    margin-bottom: 0.4rem;
+    font-size: 1.375rem;
+    line-height: 1.2;
+  }
+
+  .landing-how__desc {
+    display: -webkit-box;
+    width: 100%;
+    overflow: hidden;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .landing-how__note {
+    margin-top: 0.65rem;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.6875rem;
+    line-height: 1.2;
+  }
+
+  .landing-how__badges {
+    display: none;
+  }
+
+  .landing-how__cards {
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 0;
+  }
+
+  .landing-how-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 0;
+    padding: 0.65rem 0.7rem;
+    border-radius: 0.75rem;
+  }
+
+  .landing-how-card__icon {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .landing-how-card__scan {
+    gap: 0.3rem;
+    width: 0.75rem;
+    height: 0.7rem;
+  }
+
+  .landing-how-card__scan img {
+    width: 0.28rem;
+    height: 0.28rem;
+  }
+
+  .landing-how-card h4 {
+    font-size: 0.8125rem;
+    line-height: 1.25;
+  }
+
+  .landing-how-card p {
+    display: none;
+  }
+
+  .landing-how__nav {
+    gap: 0;
+    margin-top: 0.875rem;
+  }
+
+  .landing-how__arrow {
+    display: none;
+  }
 }
 
 /* Features */
@@ -419,6 +781,13 @@
   font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--landing-text-muted);
+}
+
+@media (max-width: 768px) {
+  .landing-feature-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Pricing */
@@ -780,15 +1149,11 @@
 }
 
 .landing-footer__logo {
+  display: inline-flex;
+  align-items: center;
   font-size: 1.375rem;
-  font-weight: var(--font-weight-medium);
   line-height: 1;
-  color: var(--landing-text);
   text-decoration: none;
-}
-
-.landing-footer__logo span {
-  color: var(--color-gold);
 }
 
 .landing-footer__brand-text {
