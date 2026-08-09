@@ -34,11 +34,11 @@ export const PRIVACY_POLICY: LegalDocument = {
   id: "privacy",
   headerTitle: "POLITIKA PRIVATNOSTI",
   cardTitle: "POLITIKA PRIVATNOSTI",
-  updated: "15. Januar 2026.",
+  updated: "9. August 2026.",
   intro: [
     "Vaša privatnost nam je izuzetno važna. Ova Politika privatnosti objašnjava kako ",
     { bold: "MySkin Code" },
-    " prikuplja, koristi i štiti vaše podatke prilikom analize kože i preporuke rutina.",
+    " prikuplja, koristi, pohranjuje, dijeli i briše vaše podatke prilikom analize kože i preporuke rutina.",
   ],
   sections: [
     {
@@ -54,18 +54,27 @@ export const PRIVACY_POLICY: LegalDocument = {
           kind: "bullets",
           items: [
             {
+              label: "Fotografije lica (face data):",
               segments: [
-                "Fotografije lica: Koje učitavate ili snimate unutar aplikacije.",
+                " Fotografije koje snimate kamerom ili odaberete iz galerije unutar aplikacije radi analize kože. Detekcija lica na uređaju koristi se samo za poravnavanje kadra i ne šalje biometrijske predloške (npr. Face ID).",
               ],
             },
             {
+              label: "Informacije o tipu kože:",
               segments: [
-                "Informacije o tipu kože: Podaci koje sami unesete (npr. dob, tip kože, alergije).",
+                " Podaci koje sami unesete (npr. dob, tip kože, alergije, brige o koži).",
               ],
             },
             {
+              label: "Podaci računa:",
               segments: [
-                "Tehnički podaci: Informacije o vašem uređaju, operativnom sustavu i načinu interakcije s aplikacijom (u svrhu poboljšanja rada aplikacije).",
+                " E-mail i osnovni identifikatori računa potrebni za prijavu i pohranu rezultata.",
+              ],
+            },
+            {
+              label: "Tehnički podaci:",
+              segments: [
+                " Informacije o uređaju, operativnom sustavu i stabilnosti aplikacije (radi poboljšanja rada).",
               ],
             },
           ],
@@ -73,23 +82,28 @@ export const PRIVACY_POLICY: LegalDocument = {
       ],
     },
     {
-      title: "2. Kako koristimo vaše fotografije?",
+      title: "2. Kako koristimo vaše fotografije i face podatke?",
       blocks: [
         {
           kind: "paragraph",
-          segments: ["Vaše fotografije se koriste isključivo za:"],
+          segments: ["Vaše fotografije lica koriste se isključivo za:"],
         },
         {
           kind: "bullets",
           items: [
             {
               segments: [
-                "Pokretanje algoritma za detekciju stanja kože (akne, crvenilo, bore, itd.).",
+                "Analizu vizualnih znakova stanja kože (npr. akne, pore, bore, pigmentacije).",
               ],
             },
             {
               segments: [
-                "Praćenje napretka vaše kože kroz vrijeme (ako odaberete opciju spremanja povijesti).",
+                "Generiranje personaliziranih preporuka rutine njege.",
+              ],
+            },
+            {
+              segments: [
+                "Praćenje napretka kroz Dnevnik (ako spremite ili zadržite rezultate analize).",
               ],
             },
           ],
@@ -98,26 +112,33 @@ export const PRIVACY_POLICY: LegalDocument = {
           kind: "note",
           label: "Važno:",
           segments: [
-            " Vaše fotografije se ne koriste u marketinške svrhe niti se prodaju trećim stranama bez vaše izričite privole.",
+            " Fotografije se ne koriste u marketinške svrhe, ne prodaju se i ne koriste za oglašavanje.",
           ],
         },
       ],
     },
     {
-      title: "3. Pohrana i sigurnost podataka",
+      title: "3. Pohrana, zadržavanje i brisanje",
       blocks: [
         {
           kind: "bullets",
           items: [
             {
-              label: "Cloud pohrana:",
+              label: "Pohrana:",
               segments: [
-                " Slike se šalju na naše sigurne servere radi obrade i pohranjuju u kriptiranom obliku.",
+                " Fotografije i rezultati analize šalju se na naše sigurne cloud servere (AWS, regija EU — eu-central-1) i pohranjuju u kriptiranom obliku.",
               ],
             },
             {
+              label: "Zadržavanje:",
               segments: [
-                "Primjenjujemo najsuvremenije sigurnosne mjere kako bismo spriječili neovlašten pristup vašim biometrijskim podacima.",
+                " Face podaci i povezani rezultati zadržavaju se dok postoji odgovarajući unos u Dnevniku ili dok postoji vaš račun — ovisno o tome što dulje traje.",
+              ],
+            },
+            {
+              label: "Brisanje:",
+              segments: [
+                " Možete obrisati pojedinačne analize u Dnevniku ili trajno obrisati račun (Profil), čime se uklanjaju povezane fotografije i rezultati iz našeg sustava.",
               ],
             },
           ],
@@ -130,20 +151,32 @@ export const PRIVACY_POLICY: LegalDocument = {
         {
           kind: "paragraph",
           segments: [
-            "Vaše osobne podatke ne dijelimo s trećim stranama, osim u sljedećim slučajevima:",
+            "Osobne podatke dijelimo samo kad je to potrebno za pružanje usluge ili kad to nalaže zakon:",
           ],
         },
         {
           kind: "bullets",
           items: [
             {
-              label: "Analitički partneri",
+              label: "AI pružatelji usluga (procesori):",
               segments: [
-                " (Npr. Google Analytics ili Firebase) za praćenje stabilnosti aplikacije.",
+                " Za analizu kože i preporuke rutine fotografija lica (i potrebni identifikatori obrade) šalje se nezavisnim AI pružateljima usluga koje angažiramo isključivo kao procesore. Oni smiju obrađivati podatke samo u naše ime, za navedene svrhe, uz ugovornu obvezu jednake ili odgovarajuće razine zaštite. Prije prvog slanja tražimo vašu izričitu privolu unutar aplikacije.",
               ],
             },
             {
-              label: "Pravna obveza",
+              label: "Infrastruktura:",
+              segments: [
+                " Cloud hosting i povezane tehničke usluge (npr. AWS) za pohranu i obradu.",
+              ],
+            },
+            {
+              label: "Analitički partneri:",
+              segments: [
+                " (Npr. Firebase) za stabilnost i dijagnostiku aplikacije — ne za prodaju face podataka.",
+              ],
+            },
+            {
+              label: "Pravna obveza:",
               segments: [" Ako to nalaže zakon."],
             },
           ],
@@ -151,7 +184,18 @@ export const PRIVACY_POLICY: LegalDocument = {
       ],
     },
     {
-      title: "5. Vaša prava (GDPR i slični zakoni)",
+      title: "5. Privola za AI obradu",
+      blocks: [
+        {
+          kind: "paragraph",
+          segments: [
+            "Prije dijeljenja fotografije lica s AI pružateljima usluga aplikacija traži vašu privolu. Bez privole AI analiza se ne pokreće. Privolu možete povući brisanjem analiza ili računa; nove analize tada nećemo slati dok ponovno ne date privolu.",
+          ],
+        },
+      ],
+    },
+    {
+      title: "6. Vaša prava (GDPR i slični zakoni)",
       blocks: [
         {
           kind: "paragraph",
@@ -164,7 +208,7 @@ export const PRIVACY_POLICY: LegalDocument = {
             { segments: ["Zatražiti ispravak netočnih podataka."] },
             {
               segments: [
-                'Zatražiti brisanje svih vaših podataka i fotografija iz našeg sustava (opcija "Obriši račun" unutar aplikacije).',
+                "Zatražiti brisanje svih vaših podataka i fotografija iz našeg sustava (opcija „Obriši račun“ unutar aplikacije).",
               ],
             },
             {
@@ -177,18 +221,18 @@ export const PRIVACY_POLICY: LegalDocument = {
       ],
     },
     {
-      title: "6. Kolačići i praćenje",
+      title: "7. Kolačići i praćenje",
       blocks: [
         {
           kind: "paragraph",
           segments: [
-            "Aplikacija može koristiti identifikatore uređaja za personalizaciju sadržaja i analizu prometa, što nam pomaže da preporuke rutina budu što preciznije.",
+            "Aplikacija može koristiti identifikatore uređaja za personalizaciju sadržaja i analizu prometa, što nam pomaže da preporuke rutina budu što preciznije. Ne koristimo face podatke za praćenje oglašavanja.",
           ],
         },
       ],
     },
     {
-      title: "7. Kontakt",
+      title: "8. Kontakt",
       blocks: [
         {
           kind: "paragraph",
@@ -208,7 +252,7 @@ export const PRIVACY_POLICY: LegalDocument = {
   ],
   seoTitle: "Politika privatnosti | MySkin Code",
   seoDescription:
-    "Politika privatnosti MySkin Code aplikacije — kako prikupljamo, koristimo i štitimo vaše podatke prilikom analize kože.",
+    "Politika privatnosti MySkin Code aplikacije — kako prikupljamo, koristimo, pohranjujemo i štitimo vaše podatke prilikom analize kože.",
 };
 
 export const TERMS_OF_USE: LegalDocument = {
