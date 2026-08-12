@@ -34,11 +34,11 @@ export const PRIVACY_POLICY: LegalDocument = {
   id: "privacy",
   headerTitle: "POLITIKA PRIVATNOSTI",
   cardTitle: "POLITIKA PRIVATNOSTI",
-  updated: "9. August 2026.",
+  updated: "12. August 2026.",
   intro: [
     "Vaša privatnost nam je izuzetno važna. Ova Politika privatnosti objašnjava kako ",
     { bold: "MySkin Code" },
-    " prikuplja, koristi, pohranjuje, dijeli i briše vaše podatke prilikom analize kože i preporuke rutina.",
+    " prikuplja, koristi, pohranjuje, dijeli i briše vaše podatke prilikom analize kože i preporuke rutina, uključujući podatke o licu (face data).",
   ],
   sections: [
     {
@@ -56,7 +56,7 @@ export const PRIVACY_POLICY: LegalDocument = {
             {
               label: "Fotografije lica (face data):",
               segments: [
-                " Fotografije koje snimate kamerom ili odaberete iz galerije unutar aplikacije radi analize kože. Detekcija lica na uređaju koristi se samo za poravnavanje kadra i ne šalje biometrijske predloške (npr. Face ID).",
+                " Fotografije koje snimate kamerom ili odaberete iz galerije unutar aplikacije radi analize kože. Detekcija lica na uređaju koristi se samo za poravnavanje kadra i ne šalje biometrijske predloške (npr. Face ID) niti se koristi za identifikaciju osobe.",
               ],
             },
             {
@@ -118,7 +118,7 @@ export const PRIVACY_POLICY: LegalDocument = {
       ],
     },
     {
-      title: "3. Pohrana, zadržavanje i brisanje",
+      title: "3. Pohrana, zadržavanje i brisanje face podataka",
       blocks: [
         {
           kind: "bullets",
@@ -126,7 +126,7 @@ export const PRIVACY_POLICY: LegalDocument = {
             {
               label: "Pohrana:",
               segments: [
-                " Fotografije i rezultati analize šalju se na naše sigurne cloud servere (AWS, regija EU — eu-central-1) i pohranjuju u kriptiranom obliku.",
+                " Fotografije i rezultati analize šalju se na naše sigurne cloud servere (Amazon Web Services — AWS, regija EU eu-central-1) i pohranjuju u kriptiranom obliku.",
               ],
             },
             {
@@ -136,9 +136,16 @@ export const PRIVACY_POLICY: LegalDocument = {
               ],
             },
             {
-              label: "Brisanje:",
+              label: "Brisanje face podataka:",
               segments: [
-                " Možete obrisati pojedinačne analize u Dnevniku ili trajno obrisati račun (Profil), čime se uklanjaju povezane fotografije i rezultati iz našeg sustava.",
+                " Možete obrisati pojedinačne analize (uključujući povezane fotografije lica) u Dnevniku. Trajnim brisanjem računa (Profil → Uredi profil → Obriši račun) uklanjaju se sve povezane fotografije, rezultati i face podaci iz našeg sustava. Zahtjev za brisanje možete poslati i na ",
+                {
+                  link: {
+                    href: "mailto:info@myskincodeapp.com",
+                    text: "info@myskincodeapp.com",
+                  },
+                },
+                ".",
               ],
             },
           ],
@@ -146,33 +153,39 @@ export const PRIVACY_POLICY: LegalDocument = {
       ],
     },
     {
-      title: "4. Dijeljenje podataka s trećim stranama",
+      title: "4. Dijeljenje face podataka s trećim stranama",
       blocks: [
         {
           kind: "paragraph",
           segments: [
-            "Osobne podatke dijelimo samo kad je to potrebno za pružanje usluge ili kad to nalaže zakon:",
+            "Osobne podatke i face podatke dijelimo samo kad je to potrebno za pružanje usluge ili kad to nalaže zakon. Za AI analizu šaljemo fotografiju lica i identifikator obrade sljedećim procesorima:",
           ],
         },
         {
           kind: "bullets",
           items: [
             {
-              label: "AI pružatelji usluga (procesori):",
+              label: "AILab Tools:",
               segments: [
-                " Za analizu kože i preporuke rutine fotografija lica (i potrebni identifikatori obrade) šalje se nezavisnim AI pružateljima usluga koje angažiramo isključivo kao procesore. Oni smiju obrađivati podatke samo u naše ime, za navedene svrhe, uz ugovornu obvezu jednake ili odgovarajuće razine zaštite. Prije prvog slanja tražimo vašu izričitu privolu unutar aplikacije.",
+                " Treća strana koja obrađuje fotografiju lica isključivo za analizu vizualnih znakova stanja kože na temelju fotografije lica. Radi kao naš procesor, samo u naše ime i za navedenu svrhu.",
               ],
             },
             {
-              label: "Infrastruktura:",
+              label: "Google LLC (Gemini / Google Cloud AI):",
               segments: [
-                " Cloud hosting i povezane tehničke usluge (npr. AWS) za pohranu i obradu.",
+                " Treća strana koja obrađuje fotografiju / rezultate isključivo za personalizirane uvide i preporuke rutine njege. Radi kao naš procesor, samo u naše ime i za navedenu svrhu.",
               ],
             },
             {
-              label: "Analitički partneri:",
+              label: "Amazon Web Services (AWS):",
               segments: [
-                " (Npr. Firebase) za stabilnost i dijagnostiku aplikacije — ne za prodaju face podataka.",
+                " Cloud hosting za pohranu i prijenos podataka (EU).",
+              ],
+            },
+            {
+              label: "Firebase (Google):",
+              segments: [
+                " Stabilnost i dijagnostika aplikacije — ne za prodaju face podataka niti za oglašavanje temeljem face podataka.",
               ],
             },
             {
@@ -181,15 +194,39 @@ export const PRIVACY_POLICY: LegalDocument = {
             },
           ],
         },
+        {
+          kind: "note",
+          label: "Jednaka zaštita:",
+          segments: [
+            " Svaka treća strana kojoj dijelimo face podatke (uključujući AILab Tools i Google Gemini) ugovorno je obvezna pružiti istu ili jednakovrijednu razinu zaštite face podataka kao što je navedeno u ovoj Politici privatnosti, uključujući ograničenje svrhe, zabranu prodaje i odgovarajuće mjere sigurnosti.",
+          ],
+        },
       ],
     },
     {
-      title: "5. Privola za AI obradu",
+      title: "5. Privola prije dijeljenja s AI uslugama",
       blocks: [
         {
           kind: "paragraph",
           segments: [
-            "Prije dijeljenja fotografije lica s AI pružateljima usluga aplikacija traži vašu privolu. Bez privole AI analiza se ne pokreće. Privolu možete povući brisanjem analiza ili računa; nove analize tada nećemo slati dok ponovno ne date privolu.",
+            "Prije prvog slanja fotografije lica AILab Tools i Google Gemini aplikacija prikazuje dijalog privole koji jasno navodi koje podatke šaljemo, kome i zašto. Bez privole AI analiza se ne pokreće i face podaci se ne šalju tim pružateljima.",
+          ],
+        },
+        {
+          kind: "bullets",
+          items: [
+            {
+              label: "Povlačenje privole:",
+              segments: [
+                " Privolu možete povući u bilo kojem trenutku u Profil → Postavke → Privola za AI analizu. Nakon povlačenja nove fotografije neće se slati AI pružateljima dok ponovno ne date privolu.",
+              ],
+            },
+            {
+              label: "Brisanje nakon povlačenja:",
+              segments: [
+                " Povlačenje privole zaustavlja buduće dijeljenje. Već pohranjene face podatke obrišite brisanjem analiza u Dnevniku ili brisanjem računa (vidi odjeljak 3).",
+              ],
+            },
           ],
         },
       ],
@@ -208,12 +245,12 @@ export const PRIVACY_POLICY: LegalDocument = {
             { segments: ["Zatražiti ispravak netočnih podataka."] },
             {
               segments: [
-                "Zatražiti brisanje svih vaših podataka i fotografija iz našeg sustava (opcija „Obriši račun“ unutar aplikacije).",
+                "Zatražiti brisanje svih vaših podataka i fotografija iz našeg sustava (opcija „Obriši račun” unutar aplikacije ili e-poštom).",
               ],
             },
             {
               segments: [
-                "Povući privolu za obradu fotografija u bilo kojem trenutku.",
+                "Povući privolu za obradu i dijeljenje fotografija lica u bilo kojem trenutku (Profil → Postavke → Privola za AI analizu).",
               ],
             },
           ],
@@ -237,7 +274,7 @@ export const PRIVACY_POLICY: LegalDocument = {
         {
           kind: "paragraph",
           segments: [
-            "Za sva pitanja u vezi s vašim podacima, možete nas kontaktirati na: ",
+            "Za sva pitanja u vezi s vašim podacima, brisanjem face podataka ili povlačenjem privole, kontaktirajte nas na: ",
             {
               link: {
                 href: "mailto:info@myskincodeapp.com",
@@ -252,7 +289,7 @@ export const PRIVACY_POLICY: LegalDocument = {
   ],
   seoTitle: "Politika privatnosti | MySkin Code",
   seoDescription:
-    "Politika privatnosti MySkin Code aplikacije — kako prikupljamo, koristimo, pohranjujemo i štitimo vaše podatke prilikom analize kože.",
+    "Politika privatnosti MySkin Code aplikacije — kako prikupljamo, koristimo, pohranjujemo i štitimo vaše podatke i face data prilikom analize kože.",
 };
 
 export const TERMS_OF_USE: LegalDocument = {
