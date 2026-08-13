@@ -34,7 +34,7 @@ export const PRIVACY_POLICY: LegalDocument = {
   id: "privacy",
   headerTitle: "POLITIKA PRIVATNOSTI",
   cardTitle: "POLITIKA PRIVATNOSTI",
-  updated: "12. August 2026.",
+  updated: "13. August 2026.",
   intro: [
     "Vaša privatnost nam je izuzetno važna. Ova Politika privatnosti objašnjava kako ",
     { bold: "MySkin Code" },
@@ -130,15 +130,21 @@ export const PRIVACY_POLICY: LegalDocument = {
               ],
             },
             {
-              label: "Zadržavanje:",
+              label: "Koliko dugo čuvamo face podatke (retention):",
               segments: [
-                " Face podaci i povezani rezultati zadržavaju se dok postoji odgovarajući unos u Dnevniku ili dok postoji vaš račun — ovisno o tome što dulje traje.",
+                " Face podaci (fotografije lica) i povezani rezultati analize čuvaju se dok je odgovarajući unos u Dnevniku aktivan ili dok je vaš račun aktivan — ovisno o tome što dulje traje. Najduže zadržavanje aktivnog računa: ",
+                { bold: "36 mjeseci" },
+                " od posljednje analize; nakon toga face podatke brišemo ako nema aktivnog korištenja, osim ako zakon nalaže dulje čuvanje.",
               ],
             },
             {
-              label: "Brisanje face podataka:",
+              label: "Brisanje i rok brisanja:",
               segments: [
-                " Možete obrisati pojedinačne analize (uključujući povezane fotografije lica) u Dnevniku. Trajnim brisanjem računa (Profil → Uredi profil → Obriši račun) uklanjaju se sve povezane fotografije, rezultati i face podaci iz našeg sustava. Zahtjev za brisanje možete poslati i na ",
+                " Možete obrisati pojedinačne analize (uključujući povezane fotografije lica) u Dnevniku — brisanje se obradi odmah u aplikaciji, a na serverima ",
+                { bold: "unutar 30 dana" },
+                ". Trajnim brisanjem računa (Profil → Uredi profil → Obriši račun) uklanjaju se sve povezane fotografije, rezultati i face podaci; potpuno brisanje s naših servera dovršava se ",
+                { bold: "unutar 30 dana" },
+                ". Zahtjev možete poslati i na ",
                 {
                   link: {
                     href: "mailto:info@myskincodeapp.com",
@@ -146,6 +152,12 @@ export const PRIVACY_POLICY: LegalDocument = {
                   },
                 },
                 ".",
+              ],
+            },
+            {
+              label: "Privremena obrada kod AI procesora:",
+              segments: [
+                " Kopije fotografije poslane AILab Tools i Google Gemini koriste se samo za obradu analize i ne zadržavaju se kod tih procesora dulje nego što je potrebno za izvršenje zahtjeva.",
               ],
             },
           ],
