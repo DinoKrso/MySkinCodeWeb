@@ -65,7 +65,15 @@
       "destination": "/api/handler?path=admin/product-image-upload"
     },
     {
-      "source": "/((?!api/).*)",
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/((?!api/|privacy(?:/|$)).*)",
       "destination": "/index.html"
     }
   ]

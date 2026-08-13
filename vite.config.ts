@@ -1,5 +1,5 @@
 import path from "node:path";
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { forgotPasswordPlugin } from "./server/vite-forgot-password-plugin";
@@ -7,6 +7,31 @@ import { adminUsersCountPlugin } from "./server/vite-admin-users-count-plugin";
 import { adminProductsPlugin } from "./server/vite-admin-products-plugin";
 import { adminProductImagePlugin } from "./server/vite-admin-product-image-plugin";
 import { apiTargets } from "./server/api-lib/api-targets";
+
+/** Serve static privacy.html at /privacy (no JS required — App Store review). */
+function staticPrivacyPlugin(): Plugin {
+  const rewrite = (
+    req: { url?: string },
+    _res: unknown,
+    next: () => void,
+  ) => {
+    const url = req.url?.split("?")[0];
+    if (url === "/privacy" || url === "/privacy/") {
+      req.url = "/privacy.html";
+    }
+    next();
+  };
+
+  return {
+    name: "static-privacy",
+    configureServer(server) {
+      server.middlewares.use(rewrite);
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(rewrite);
+    },
+  };
+}
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -16,6 +41,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tailwindcss(),
+      staticPrivacyPlugin(),
       forgotPasswordPlugin(),
       adminUsersCountPlugin(),
       adminProductsPlugin(),
