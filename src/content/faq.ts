@@ -41,7 +41,7 @@ export const FAQ_CATEGORIES: readonly FaqCategory[] = [
   {
     id: "plans",
     title: "Pretplate i paketi",
-    description: "Basic, Plus i Premium — što dobivate i kako promijeniti plan.",
+    description: "Basic, Plus i Premium - što dobivate i kako promijeniti plan.",
     items: [
       {
         question: "Mogu li promijeniti paket kasnije?",
@@ -71,7 +71,7 @@ export const FAQ_CATEGORIES: readonly FaqCategory[] = [
             {
               question: "Kako funkcionira povrat novca?",
               answer:
-                "Zahtjev pošaljite na support. Ako ste platili karticom, povrat se uvijek vraća na istu karticu storniranjem transakcije — nikad gotovinom ni na drugi račun. Detalji su na stranici Povrat sredstava.",
+                "Zahtjev pošaljite na support. Ako ste platili karticom, povrat se uvijek vraća na istu karticu storniranjem transakcije - nikad gotovinom ni na drugi račun. Detalji su na stranici Povrat sredstava.",
             },
     ],
   },

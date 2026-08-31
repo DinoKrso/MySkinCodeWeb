@@ -81,7 +81,7 @@ export default function UsersCountChart({
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         className="admin-chart__svg"
         role="img"
-        aria-label={`Graf registracija korisnika — zadnjih ${days} dana`}
+        aria-label={`Graf registracija korisnika - zadnjih ${days} dana`}
       >
         <defs>
           <linearGradient id="usersAreaFill" x1="0" y1="0" x2="0" y2="1">

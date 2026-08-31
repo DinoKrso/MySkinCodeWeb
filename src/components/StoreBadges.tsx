@@ -46,7 +46,7 @@ function StoreBadge({ store, large = false }: StoreBadgeProps) {
     return (
       <span
         className={`store-badge store-badge--disabled${large ? " store-badge--lg" : ""}`}
-        aria-label={`${label} — uskoro dostupno`}
+        aria-label={`${label} - uskoro dostupno`}
       >
         {isApple ? <AppleStoreIcon /> : <GooglePlayIcon />}
         <span className="store-badge__label">{label}</span>

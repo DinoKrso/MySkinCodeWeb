@@ -20,7 +20,7 @@ export default function DownloadPage() {
             <p className="download-page__eyebrow">Preuzimanje</p>
             <h1>Preuzmite MySkin Code</h1>
             <p className="download-page__lead">
-              Personalizirana njega kože uz AI analizu — dostupna na iOS i
+              Personalizirana njega kože uz AI analizu - dostupna na iOS i
               Android.
             </p>
 

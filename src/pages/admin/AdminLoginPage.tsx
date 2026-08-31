@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
           </p>
           <h1 className="ui-panel__title">Prijava administratora</h1>
           <p className="ui-panel__subtitle">
-            Pristup analitici i upravljanju — samo za ovlaštene korisnike.
+            Pristup analitici i upravljanju - samo za ovlaštene korisnike.
           </p>
 
           <form className="ui-form" onSubmit={handleSubmit}>

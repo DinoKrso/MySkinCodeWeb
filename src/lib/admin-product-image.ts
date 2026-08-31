@@ -46,7 +46,7 @@ function parseUploadResponse(raw: unknown): ProductImageUploadResult {
 
   if (body.uploadUrl) {
     throw new Error(
-      "Lambda još koristi stari presigned URL flow — slika nije na S3. Redeployaj product-image-upload Lambda (direktni PutObject) i ponovi upload.",
+      "Lambda još koristi stari presigned URL flow - slika nije na S3. Redeployaj product-image-upload Lambda (direktni PutObject) i ponovi upload.",
     );
   }
 

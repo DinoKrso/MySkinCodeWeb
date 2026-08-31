@@ -78,7 +78,7 @@ export async function fetchCountFromUpstream(
         : `HTTP ${response.status}`;
     if (response.status === 404) {
       throw new Error(
-        `404 — nema rute na ${url}. Provjeri URL za broj ${resourceLabel}.`,
+        `404 - nema rute na ${url}. Provjeri URL za broj ${resourceLabel}.`,
       );
     }
     throw new Error(message);

@@ -189,7 +189,7 @@ export default function LoginPage() {
               <p>
                 <strong>Lambda API je već spojen</strong> (
                 <code>/auth/firebase</code>). Ali prije poziva tog API-ja,
-                web mora otvoriti Google prozor i dobiti Firebase ID token —
+                web mora otvoriti Google prozor i dobiti Firebase ID token -
                 isto kao mobilna app.
               </p>
               {missingFirebaseKeys.length > 0 && (

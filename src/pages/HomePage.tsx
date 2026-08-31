@@ -396,7 +396,7 @@ export default function HomePage() {
           </h1>
           <p className="landing-hero__subtitle">
             Analizirajte stanje kože, dobijte personaliziranu rutinu, pratite
-            napredak i razumijte sastojke proizvoda – sve u jednoj aplikaciji.
+            napredak i razumijte sastojke proizvoda - sve u jednoj aplikaciji.
           </p>
           <div className="landing-hero__actions">
             <Link to="/download" className="landing-btn landing-btn--primary">

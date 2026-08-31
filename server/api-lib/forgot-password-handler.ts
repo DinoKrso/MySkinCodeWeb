@@ -111,7 +111,7 @@ export async function handleForgotPasswordRequest(
     const { error } = await resend.emails.send({
       from: env.resendFrom,
       to: email,
-      subject: "Reset lozinke — MySkinCode",
+      subject: "Reset lozinke - MySkinCode",
       html: buildResetEmailHtml(resetUrl),
     });
 

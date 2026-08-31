@@ -242,9 +242,10 @@ Ako `GetItem` javlja da key ne odgovara shemi, u Dynamo konzoli otvori jednog ko
 
 ```bash
 cd lambda/activate-subscription
-npm install
-zip -r activate-subscription.zip handler.mjs node_modules package.json
+npm run zip
 ```
+
+U AWS Console: Handler ostavi **`index.handler`** (default). Zip na rootu mora imati `index.mjs`.
 
 API Gateway (ista `rdwp2lazqa` ili nova): **POST** `/subscriptions/activate` → ova Lambda.
 
@@ -254,3 +255,34 @@ Web env (Vercel + lokalni `.env`):
 MONRI_ACTIVATE_SUBSCRIPTION_URL=https://rdwp2lazqa.execute-api.eu-central-1.amazonaws.com/dev/subscriptions/activate
 MONRI_ACTIVATE_SUBSCRIPTION_KEY=<isti ADMIN_API_KEY>
 ```
+
+---
+
+## `expire-subscriptions`
+
+Dnevni (ili ručni) prolaz kroz `Users`: ako je `subscriptionPlan` `plus`/`premium` i `subscriptionExpiresAt` je u prošlosti, upisuje `basic`. `subscriptionExpiresAt` ostaje (audit).
+
+**Prava zaštita paketa nije ovaj cron.** Svaka Lambda koja gleda paket (profil, skeniranje, limite) mora računati:
+
+`effectivePlan = subscriptionExpiresAt > now ? subscriptionPlan : "basic"`
+
+Cron samo usklađuje Dynamo da admin i klijenti koji čitaju samo `subscriptionPlan` vide Basic.
+
+### Deploy
+
+```bash
+cd lambda/expire-subscriptions
+npm run zip
+```
+
+U AWS Console:
+
+1. Nova Lambda, runtime Node.js 20/24, Handler **`index.handler`**
+2. Upload `expire-subscriptions.zip`
+3. Timeout 60 s, memorija 256 MB
+4. Env: `USERS_TABLE_NAME=Users` (isti `USERS_PK_*` / `USERS_SK_*` kao activate-subscription ako tablica nije `userId`)
+5. IAM: `infra/iam-expire-subscriptions.json` (`Scan` + `UpdateItem`)
+6. EventBridge → **Schedule** `rate(1 day)` (npr. 03:00 UTC) → ova Lambda. Nije potreban API Gateway.
+
+Test u konzoli: prazan event `{}`. Odgovor: `{ "ok": true, "scanned": N, "expired": M }`.
+

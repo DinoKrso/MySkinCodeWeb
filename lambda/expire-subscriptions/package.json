@@ -1,0 +1,15 @@
+{
+  "name": "expire-subscriptions",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lambda: Plus/Premium → Basic kad subscriptionExpiresAt prođe",
+  "main": "index.mjs",
+  "scripts": {
+    "zip": "npm install --omit=dev && zip -r expire-subscriptions.zip index.mjs node_modules package.json"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.758.0",
+    "@aws-sdk/lib-dynamodb": "^3.758.0"
+  }
+}

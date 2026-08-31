@@ -126,13 +126,13 @@ export const PRIVACY_POLICY: LegalDocument = {
             {
               label: "Pohrana:",
               segments: [
-                " Fotografije i rezultati analize šalju se na naše sigurne cloud servere (Amazon Web Services — AWS, regija EU eu-central-1) i pohranjuju u kriptiranom obliku.",
+                " Fotografije i rezultati analize šalju se na naše sigurne cloud servere (Amazon Web Services - AWS, regija EU eu-central-1) i pohranjuju u kriptiranom obliku.",
               ],
             },
             {
               label: "Koliko dugo čuvamo face podatke (retention):",
               segments: [
-                " Face podaci (fotografije lica) i povezani rezultati analize čuvaju se dok je odgovarajući unos u Dnevniku aktivan ili dok je vaš račun aktivan — ovisno o tome što dulje traje. Najduže zadržavanje aktivnog računa: ",
+                " Face podaci (fotografije lica) i povezani rezultati analize čuvaju se dok je odgovarajući unos u Dnevniku aktivan ili dok je vaš račun aktivan - ovisno o tome što dulje traje. Najduže zadržavanje aktivnog računa: ",
                 { bold: "36 mjeseci" },
                 " od posljednje analize; nakon toga face podatke brišemo ako nema aktivnog korištenja, osim ako zakon nalaže dulje čuvanje.",
               ],
@@ -140,7 +140,7 @@ export const PRIVACY_POLICY: LegalDocument = {
             {
               label: "Brisanje i rok brisanja:",
               segments: [
-                " Možete obrisati pojedinačne analize (uključujući povezane fotografije lica) u Dnevniku — brisanje se obradi odmah u aplikaciji, a na serverima ",
+                " Možete obrisati pojedinačne analize (uključujući povezane fotografije lica) u Dnevniku - brisanje se obradi odmah u aplikaciji, a na serverima ",
                 { bold: "unutar 30 dana" },
                 ". Trajnim brisanjem računa (Profil → Uredi profil → Obriši račun) uklanjaju se sve povezane fotografije, rezultati i face podaci; potpuno brisanje s naših servera dovršava se ",
                 { bold: "unutar 30 dana" },
@@ -197,7 +197,7 @@ export const PRIVACY_POLICY: LegalDocument = {
             {
               label: "Firebase (Google):",
               segments: [
-                " Stabilnost i dijagnostika aplikacije — ne za prodaju face podataka niti za oglašavanje temeljem face podataka.",
+                " Stabilnost i dijagnostika aplikacije - ne za prodaju face podataka niti za oglašavanje temeljem face podataka.",
               ],
             },
             {
@@ -307,7 +307,7 @@ export const PRIVACY_POLICY: LegalDocument = {
   ],
   seoTitle: "Politika privatnosti | MySkin Code",
   seoDescription:
-    "Politika privatnosti MySkin Code aplikacije — kako prikupljamo, koristimo, pohranjujemo i štitimo vaše podatke i face data prilikom analize kože.",
+    "Politika privatnosti MySkin Code aplikacije - kako prikupljamo, koristimo, pohranjujemo i štitimo vaše podatke i face data prilikom analize kože.",
 };
 
 export const TERMS_OF_USE: LegalDocument = {

@@ -189,7 +189,7 @@ export async function handleResetPasswordRequest(
   if (!updated) {
     sendJson(res, 502, {
       error:
-        "Lozinka nije promijenjena na serveru. Lambda nije pronašla korisnika ili nije ažurirala bazu — provjeri reset-password Lambda (DynamoDB tabela i polja).",
+        "Lozinka nije promijenjena na serveru. Lambda nije pronašla korisnika ili nije ažurirala bazu - provjeri reset-password Lambda (DynamoDB tabela i polja).",
     });
     return;
   }

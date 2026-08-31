@@ -129,7 +129,7 @@ export default function AdminAnalyticsPage() {
                 className="admin-analytics__counter-value"
                 aria-live="polite"
               >
-                {usersSnapshot?.count.toLocaleString("hr-HR") ?? "—"}
+                {usersSnapshot?.count.toLocaleString("hr-HR") ?? "-"}
               </p>
               <p className="admin-analytics__counter-meta">
                 {usersSnapshot?.table
@@ -161,7 +161,7 @@ export default function AdminAnalyticsPage() {
                 className="admin-analytics__counter-value"
                 aria-live="polite"
               >
-                {productsSnapshot?.count.toLocaleString("hr-HR") ?? "—"}
+                {productsSnapshot?.count.toLocaleString("hr-HR") ?? "-"}
               </p>
               <p className="admin-analytics__counter-meta">
                 {productsSnapshot?.table
@@ -177,7 +177,7 @@ export default function AdminAnalyticsPage() {
             <div>
               <p className="ui-eyebrow">Trend</p>
               <h2 className="ui-card__title">
-                Registracije — zadnjih {CHART_HISTORY_DAYS} dana
+                Registracije - zadnjih {CHART_HISTORY_DAYS} dana
               </h2>
             </div>
             <p className="admin-analytics__chart-note">

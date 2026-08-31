@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Lambda: aktivacija pretplate nakon Monri uplate",
-  "main": "handler.mjs",
+  "main": "index.mjs",
   "scripts": {
-    "zip": "npm install --omit=dev && zip -r activate-subscription.zip handler.mjs node_modules package.json"
+    "zip": "npm install --omit=dev && zip -r activate-subscription.zip index.mjs node_modules package.json"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.758.0",

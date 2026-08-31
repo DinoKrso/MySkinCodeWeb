@@ -86,6 +86,7 @@ function ChoosePlanContent() {
             getCardClassName={getCardClassName}
             renderCardExtra={(plan) =>
               isUsersCurrentPlan(plan.id, profile) &&
+              plan.requiresCheckout &&
               subscriptionExpiresLabel ? (
                 <p className="pricing-plans-card__expires">
                   Vrijedi do: <strong>{subscriptionExpiresLabel}</strong>

@@ -100,7 +100,7 @@ function CheckoutContent() {
           <dl className="checkout-page__summary">
             <div>
               <dt>Usluga</dt>
-              <dd>MySkin Code — paket {plan.name}</dd>
+              <dd>MySkin Code - paket {plan.name}</dd>
             </div>
             <div>
               <dt>Razdoblje</dt>
@@ -121,7 +121,7 @@ function CheckoutContent() {
             ) : null}
             <div>
               <dt>Dostava</dt>
-              <dd>0,00 KM — elektronička isporuka</dd>
+              <dd>0,00 KM - elektronička isporuka</dd>
             </div>
             <div className="checkout-page__total">
               <dt>Ukupno za naplatu</dt>

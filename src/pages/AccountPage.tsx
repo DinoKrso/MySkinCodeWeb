@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   findPlanById,
+  getEffectivePlanId,
   isSubscriptionActive,
-  normalizePlanId,
 } from "../content/plans";
 import { useAuth } from "../context/AuthContext";
 import { DashboardProfileProvider, useDashboardProfile } from "../context/DashboardProfileContext";
@@ -19,9 +19,13 @@ function AccountContent() {
   const { profile, loading, error } = useDashboardProfile();
 
   const flashMessage = (location.state as { message?: string } | null)?.message;
-  const currentPlanId = normalizePlanId(profile?.subscriptionPlan);
+  const currentPlanId = getEffectivePlanId(profile);
   const currentPlan = findPlanById(currentPlanId);
-  const subscriptionActive = isSubscriptionActive(profile);
+  const paidActive = isSubscriptionActive(profile);
+  const storedExpired =
+    Boolean(profile?.subscriptionPlan?.trim()) &&
+    profile?.subscriptionPlan?.trim().toLowerCase() !== "basic" &&
+    !paidActive;
   const subscriptionExpiresLabel = formatSubscriptionExpiresAt(
     profile?.subscriptionExpiresAt,
   );
@@ -63,40 +67,44 @@ function AccountContent() {
           {!loading && !error && (
             <div className="account-page__plan">
               <p className="ui-eyebrow">Trenutni paket</p>
-              {currentPlan && subscriptionActive ? (
+              {currentPlan ? (
                 <>
                   <p className="account-page__plan-name">{currentPlan.name}</p>
                   <p className="account-page__plan-price">
                     {currentPlan.price}
                     {currentPlan.period ? ` ${currentPlan.period}` : ""}
                   </p>
-                  {subscriptionExpiresLabel ? (
+                  {paidActive && subscriptionExpiresLabel ? (
                     <p className="account-page__expires">
                       Vrijedi do:{" "}
                       <strong>{subscriptionExpiresLabel}</strong>
                     </p>
-                  ) : currentPlan.requiresCheckout ? (
+                  ) : null}
+                  {paidActive &&
+                  currentPlan.requiresCheckout &&
+                  !subscriptionExpiresLabel ? (
                     <p className="account-page__plan-hint">
                       Datum isteka pretplate nije dostupan u profilu.
                     </p>
                   ) : null}
+                  {storedExpired ? (
+                    <>
+                      <p className="account-page__plan-hint">
+                        Plaćena pretplata je istekla. Ponovo ste na Basic
+                        paketu.
+                      </p>
+                      {subscriptionExpiresLabel ? (
+                        <p className="account-page__expires account-page__expires--inactive">
+                          Isteklo: {subscriptionExpiresLabel}
+                        </p>
+                      ) : null}
+                    </>
+                  ) : null}
                 </>
               ) : (
-                <>
-                  <p className="account-page__plan-name">
-                    {profile?.subscriptionPlan?.trim() || "Nije odabrano"}
-                  </p>
-                  <p className="account-page__plan-hint">
-                    {profile?.subscriptionPlan?.trim()
-                      ? "Pretplata nije aktivna ili je istekla."
-                      : "Još nemate aktivnu pretplatu."}
-                  </p>
-                  {subscriptionExpiresLabel && (
-                    <p className="account-page__expires account-page__expires--inactive">
-                      Zadnji zabilježeni istek: {subscriptionExpiresLabel}
-                    </p>
-                  )}
-                </>
+                <p className="account-page__plan-hint">
+                  Još nemate aktivnu pretplatu.
+                </p>
               )}
             </div>
           )}

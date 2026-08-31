@@ -6,7 +6,7 @@ export const GOOGLE_PLAY_URL = readEnv("GOOGLE_PLAY_URL");
 export const DOWNLOAD_HIGHLIGHTS = [
   {
     title: "iOS i Android",
-    description: "Dostupno na App Store i Google Play — isti premium doživljaj na oba uređaja.",
+    description: "Dostupno na App Store i Google Play - isti premium doživljaj na oba uređaja.",
   },
   {
     title: "Besplatan početak",

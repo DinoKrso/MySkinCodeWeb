@@ -185,19 +185,19 @@ export default function AdminProductsPage() {
           </p>
           <ul className="admin-products__warning-list">
             <li>
-              <strong>step_type</strong> — samo vrijednosti iz padajućeg izbornika (npr. Čistač,
+              <strong>step_type</strong> - samo vrijednosti iz padajućeg izbornika (npr. Čistač,
               Serum, SPF).
             </li>
             <li>
-              <strong>category</strong> — točan naziv na engleskom (npr. moisturizer, serum,
+              <strong>category</strong> - točan naziv na engleskom (npr. moisturizer, serum,
               sunscreen).
             </li>
             <li>
-              <strong>concerns / highlights / sastojci</strong> — mala slova, engleski, odvojeno
+              <strong>concerns / highlights / sastojci</strong> - mala slova, engleski, odvojeno
               zarezom ili novim redom.
             </li>
             <li>
-              <strong>skin_types</strong> — odaberite sve tipove kože za koje je proizvod
+              <strong>skin_types</strong> - odaberite sve tipove kože za koje je proizvod
               prikladan.
             </li>
           </ul>

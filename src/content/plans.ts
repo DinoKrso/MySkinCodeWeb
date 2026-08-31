@@ -10,7 +10,7 @@ export type PricingPlan = {
   period: string | null;
   /** Godišnja cijena (Plus, Premium). */
   annualPrice?: string | null;
-  /** 12 × mjesečna cijena — prikaz prekriženo kod godišnjeg plana. */
+  /** 12 × mjesečna cijena - prikaz prekriženo kod godišnjeg plana. */
   annualOriginalPrice?: string | null;
   /** Iznos uštede (npr. "24 KM"). */
   annualSavings?: string | null;
@@ -26,7 +26,7 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
   {
     id: "basic",
     name: "Basic",
-    description: "Besplatan ulaz u MySkin — osnovna analiza i dnevnik",
+    description: "Besplatan ulaz u MySkin - osnovna analiza i dnevnik",
     price: "Besplatno",
     period: null,
     featured: false,
@@ -152,12 +152,11 @@ type SubscriptionProfile = {
   subscriptionExpiresAt?: string | null;
 };
 
-/** Pretplata je aktivna ako postoji prepoznatljiv plan i (ako postoji) nije istekao. */
-export function isSubscriptionActive(
+function isPaidPlanStillValid(
   profile: SubscriptionProfile | null | undefined,
 ): boolean {
   const planId = normalizePlanId(profile?.subscriptionPlan);
-  if (!planId || !findPlanById(planId)) return false;
+  if (!planId || planId === "basic" || !findPlanById(planId)) return false;
 
   const expires = profile?.subscriptionExpiresAt?.trim();
   if (!expires) return true;
@@ -168,12 +167,31 @@ export function isSubscriptionActive(
   return expMs >= Date.now();
 }
 
+/**
+ * Plus/Premium dok nije istekao datum; inače Basic.
+ * Web i mobilna app trebaju koristiti ovo, ne sirovi `subscriptionPlan`.
+ */
+export function getEffectivePlanId(
+  profile: SubscriptionProfile | null | undefined,
+): string {
+  if (isPaidPlanStillValid(profile)) {
+    return normalizePlanId(profile?.subscriptionPlan) ?? "basic";
+  }
+  return "basic";
+}
+
+/** Plaćeni paket još vrijedi. Basic se ne računa kao plaćena pretplata. */
+export function isSubscriptionActive(
+  profile: SubscriptionProfile | null | undefined,
+): boolean {
+  return isPaidPlanStillValid(profile);
+}
+
 export function isUsersCurrentPlan(
   planId: string,
   profile: SubscriptionProfile | null | undefined,
 ): boolean {
-  if (!isSubscriptionActive(profile)) return false;
-  return normalizePlanId(planId) === normalizePlanId(profile?.subscriptionPlan);
+  return normalizePlanId(planId) === getEffectivePlanId(profile);
 }
 
 const CHECKOUT_ENV_KEYS: Record<
@@ -194,7 +212,7 @@ const CHECKOUT_ENV_KEYS: Record<
   },
 };
 
-/** Stripe ili payment link — postavi VITE_CHECKOUT_URL_* u env. */
+/** Stripe ili payment link - postavi VITE_CHECKOUT_URL_* u env. */
 export function getCheckoutUrl(
   planId: string,
   interval: BillingInterval = "monthly",

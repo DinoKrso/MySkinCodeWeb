@@ -189,7 +189,7 @@ export const TERMS_OF_SALE: LegalDocument = {
   ],
   seoTitle: "Uvjeti prodaje | MySkin Code",
   seoDescription:
-    "Uvjeti prodaje i pretplate MySkin Code — naručivanje, kartično plaćanje, isporuka digitalne usluge i otkazivanje.",
+    "Uvjeti prodaje i pretplate MySkin Code - naručivanje, kartično plaćanje, isporuka digitalne usluge i otkazivanje.",
 };
 
 export const REFUND_POLICY: LegalDocument = {
