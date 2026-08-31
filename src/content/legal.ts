@@ -19,7 +19,7 @@ export type LegalSection = {
 };
 
 export type LegalDocument = {
-  id: "privacy" | "terms";
+  id: string;
   headerTitle: string;
   cardTitle: string;
   updated?: string;
@@ -198,6 +198,12 @@ export const PRIVACY_POLICY: LegalDocument = {
               label: "Firebase (Google):",
               segments: [
                 " Stabilnost i dijagnostika aplikacije — ne za prodaju face podataka niti za oglašavanje temeljem face podataka.",
+              ],
+            },
+            {
+              label: "Monri Payments:",
+              segments: [
+                " Ovlašteni pružatelj platnih usluga (WebPay). Za naplatu pretplate šaljemo ime, e-mail i podatke narudžbe. Broj kartice unosi se na Monri stranici i mi ga ne pohranjujemo. Podaci se ne koriste za marketing bez vaše privole.",
               ],
             },
             {

@@ -1,0 +1,102 @@
+.checkout-page {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem var(--app-section-pad) 3rem;
+}
+
+.checkout-page__panel {
+  max-width: 32rem;
+}
+
+.checkout-page .ui-eyebrow {
+  margin: 0 0 0.5rem;
+  text-align: center;
+}
+
+.checkout-page__summary {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0 0 1.25rem;
+  padding: 1.1rem 1.15rem;
+  background: var(--color-surface-muted, #f5f3f0);
+  border-radius: var(--radius-lg);
+}
+
+.checkout-page__summary > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.checkout-page__summary dt {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.checkout-page__summary dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  text-align: right;
+  color: var(--color-text);
+}
+
+.checkout-page__total {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.checkout-page__total dt,
+.checkout-page__total dd {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.checkout-page__pay-hint {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.checkout-page__accept {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.checkout-page__accept input {
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.checkout-page__accept a {
+  color: var(--color-gold-dark);
+}
+
+.checkout-page__pay {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-page .payment-logos {
+  margin: 0 0 1.25rem;
+}
+
+.checkout-page__legal-links {
+  margin: 0 0 1.25rem;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--color-text-faint);
+}
+
+.checkout-page__legal-links a {
+  color: var(--color-gold-dark);
+}

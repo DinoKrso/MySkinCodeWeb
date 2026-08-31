@@ -56,14 +56,14 @@ export default function LoginPage() {
     ? sanitizeRedirectPath(redirectParam)
     : planReturn;
 
-  const returnTo =
-    (location.state as { from?: string } | null)?.from ?? defaultReturn;
+  const fromRaw = (location.state as { from?: string } | null)?.from;
+  const returnTo = fromRaw ? sanitizeRedirectPath(fromRaw) : defaultReturn;
 
   useEffect(() => {
     if (user) {
-      navigate(defaultReturn, { replace: true });
+      navigate(returnTo, { replace: true });
     }
-  }, [user, navigate, defaultReturn]);
+  }, [user, navigate, returnTo]);
 
   function finishLogin(token: string, user: { userId: string; email: string; name?: string }) {
     loginSuccess(token, user);

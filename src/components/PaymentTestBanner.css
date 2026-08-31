@@ -1,0 +1,17 @@
+.payment-test-banner {
+  padding: 0.7rem var(--app-section-pad);
+  background: #8a1c1c;
+  color: #fff;
+  text-align: center;
+}
+
+.payment-test-banner p {
+  margin: 0 auto;
+  max-width: 52rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.payment-test-banner strong {
+  font-weight: var(--font-weight-medium);
+}

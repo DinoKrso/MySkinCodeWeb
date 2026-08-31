@@ -4,6 +4,11 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { AdminAuthProvider } from "./context/AdminAuthContext";
 import { AuthProvider } from "./context/AuthContext";
 import { PRIVACY_POLICY, TERMS_OF_USE } from "./content/legal";
+import {
+  PAYMENT_SECURITY,
+  REFUND_POLICY,
+  TERMS_OF_SALE,
+} from "./content/payment-legal";
 import DashboardLayout from "./layouts/DashboardLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import HomePage from "./pages/HomePage";
@@ -14,6 +19,8 @@ import LoginPage from "./pages/LoginPage";
 import AppAuthHandoffPage from "./pages/AppAuthHandoffPage";
 import AccountPage from "./pages/AccountPage";
 import ChoosePlanPage from "./pages/ChoosePlanPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import PaymentResultPage from "./pages/PaymentResultPage";
 import FaqPage from "./pages/FaqPage";
 import DownloadPage from "./pages/DownloadPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
@@ -33,6 +40,30 @@ function App() {
                 element={<LegalPage document={PRIVACY_POLICY} />}
               />
               <Route path="/terms" element={<LegalPage document={TERMS_OF_USE} />} />
+              <Route
+                path="/terms-of-sale"
+                element={<LegalPage document={TERMS_OF_SALE} />}
+              />
+              <Route
+                path="/refund"
+                element={<LegalPage document={REFUND_POLICY} />}
+              />
+              <Route
+                path="/payment-security"
+                element={<LegalPage document={PAYMENT_SECURITY} />}
+              />
+              <Route
+                path="/uvjeti-prodaje"
+                element={<Navigate to="/terms-of-sale" replace />}
+              />
+              <Route
+                path="/povrat"
+                element={<Navigate to="/refund" replace />}
+              />
+              <Route
+                path="/sigurnost-placanja"
+                element={<Navigate to="/payment-security" replace />}
+              />
               <Route path="/faq" element={<FaqPage />} />
               <Route path="/download" element={<DownloadPage />} />
               <Route
@@ -56,6 +87,22 @@ function App() {
                     <ChoosePlanPage />
                   </ProtectedRoute>
                 }
+              />
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <CheckoutPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/payment/success"
+                element={<PaymentResultPage variant="success" />}
+              />
+              <Route
+                path="/payment/cancel"
+                element={<PaymentResultPage variant="cancel" />}
               />
               <Route
                 path="/account"

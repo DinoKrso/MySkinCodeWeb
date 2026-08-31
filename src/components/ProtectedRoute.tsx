@@ -13,7 +13,8 @@ export default function ProtectedRoute({ children }: Props) {
   const token = getStoredToken();
 
   if (!user || !token) {
-    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+    const from = `${location.pathname}${location.search}`;
+    return <Navigate to="/login" state={{ from }} replace />;
   }
 
   return children;

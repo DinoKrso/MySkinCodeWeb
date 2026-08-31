@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { LegalDocument } from "../content/legal";
 import LegalContent from "../components/LegalContent";
+import PaymentLogos from "../components/PaymentLogos";
 import "./LegalPage.css";
 
 type Props = {
@@ -63,12 +64,25 @@ export default function LegalPage({ document: doc }: Props) {
       <main className="legal-doc__main">
         <div className="legal-doc__card">
           <LegalContent document={doc} />
+          {(doc.id === "payment-security" ||
+            doc.id === "terms-of-sale" ||
+            doc.id === "refund") && (
+            <div className="legal-doc__logos">
+              <PaymentLogos />
+            </div>
+          )}
         </div>
 
         <footer className="legal-doc__footer">
           <Link to="/privacy">Politika privatnosti</Link>
           <span aria-hidden="true">·</span>
           <Link to="/terms">Uvjeti i odredbe</Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/terms-of-sale">Uvjeti prodaje</Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/refund">Povrat</Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/payment-security">Sigurnost plaćanja</Link>
         </footer>
       </main>
     </div>

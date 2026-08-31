@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" role="img" aria-label="Mastercard Identity Check">
+  <rect width="200" height="40" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="18" cy="20" r="8" fill="#EB001B"/>
+  <circle cx="28" cy="20" r="8" fill="#F79E1B"/>
+  <path d="M23 13.4a8 8 0 0 1 0 13.2 8 8 0 0 1 0-13.2z" fill="#FF5F00"/>
+  <text x="118" y="17" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="9" fill="#1a1a1a">Mastercard®</text>
+  <text x="118" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="8" fill="#1a1a1a">Identity Check"</text>
+</svg>

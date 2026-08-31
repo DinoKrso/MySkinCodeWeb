@@ -190,3 +190,67 @@ Ako bucket koristi KMS enkripciju, dodaj i `kms:GenerateDataKey` na taj ključ.
 ### S3 CORS
 
 Za ovaj flow **nije potreban** CORS za PUT (upload ide preko Lambda). CORS i dalje može trebati za **GET** slika u appu ako bucket nije javan.
+
+---
+
+## `activate-subscription`
+
+Poziva je web `/api/payments/monri/callback` nakon odobrene Monri uplate. Upisuje paket i datum isteka na korisnika.
+
+| `billingInterval` | Istek |
+|-------------------|--------|
+| `monthly` | +1 mjesec |
+| `yearly` | +1 godina |
+
+Ako korisnik već ima **isti ili viši** paket koji još nije istekao, novo razdoblje se **nadovezuje** na postojeći istek (obnova). Upgrade (plus → premium) kreće od sada.
+
+### Request
+
+`POST /subscriptions/activate`
+
+```json
+{
+  "userId": "abc-123",
+  "planId": "plus",
+  "billingInterval": "yearly",
+  "orderNumber": "MSCxxxx",
+  "amount": 11999,
+  "currency": "BAM"
+}
+```
+
+`planId`: `plus` | `premium`. Isti `orderNumber` se ne naplaćuje dvaput.
+
+### Lambda env
+
+| Varijabla | Default | Opis |
+|-----------|---------|------|
+| `USERS_TABLE_NAME` | `Users` | Tablica korisnika |
+| `ADMIN_API_KEY` | — | Isti ključ kao ostale admin Lambda |
+| `USERS_PK_ATTRIBUTE` | `userId` | Partition key (ako je `PK`, stavi `PK`) |
+| `USERS_PK_PREFIX` | *(prazno)* | Npr. `USER#` ako je PK `USER#{id}` |
+| `USERS_SK_ATTRIBUTE` | *(prazno)* | Ako tablica ima sort key, npr. `SK` |
+| `USERS_SK_VALUE` | *(prazno)* | Npr. `PROFILE` |
+
+Ako `GetItem` javlja da key ne odgovara shemi, u Dynamo konzoli otvori jednog korisnika i uskladi `USERS_PK_*` / `USERS_SK_*`.
+
+### IAM
+
+`dynamodb:GetItem` + `dynamodb:UpdateItem` na `Users`. Vidi `infra/iam-activate-subscription.json` (zamijeni `ACCOUNT_ID`).
+
+### Deploy
+
+```bash
+cd lambda/activate-subscription
+npm install
+zip -r activate-subscription.zip handler.mjs node_modules package.json
+```
+
+API Gateway (ista `rdwp2lazqa` ili nova): **POST** `/subscriptions/activate` → ova Lambda.
+
+Web env (Vercel + lokalni `.env`):
+
+```
+MONRI_ACTIVATE_SUBSCRIPTION_URL=https://rdwp2lazqa.execute-api.eu-central-1.amazonaws.com/dev/subscriptions/activate
+MONRI_ACTIVATE_SUBSCRIPTION_KEY=<isti ADMIN_API_KEY>
+```

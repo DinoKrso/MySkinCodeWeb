@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PricingPlansSection from "../components/PricingPlansSection";
+import PaymentLogos from "../components/PaymentLogos";
 import {
-  getCheckoutUrl,
   isUsersCurrentPlan,
   normalizePlanId,
   parseBillingInterval,
@@ -49,16 +49,9 @@ function ChoosePlanContent() {
       return;
     }
 
-    const checkoutUrl = getCheckoutUrl(plan.id, billingInterval);
-    if (!checkoutUrl) {
-      setError(
-        `Link za plaćanje paketa „${plan.name}” (${billingInterval === "yearly" ? "godišnje" : "mjesečno"}) još nije postavljen. Kontaktirajte podršku.`,
-      );
-      setBusyPlanId(null);
-      return;
-    }
-
-    window.location.href = checkoutUrl;
+    navigate(
+      `/checkout?plan=${encodeURIComponent(plan.id)}&billing=${billingInterval}`,
+    );
   }
 
   function getCardClassName(plan: PricingPlan) {
@@ -127,6 +120,17 @@ function ChoosePlanContent() {
             {" · "}
             <Link to="/">Natrag na početnu</Link>
           </p>
+
+          <div className="choose-plan-page__payments">
+            <PaymentLogos />
+            <p className="choose-plan-page__legal">
+              <Link to="/terms-of-sale">Uvjeti prodaje</Link>
+              {" · "}
+              <Link to="/refund">Povrat</Link>
+              {" · "}
+              <Link to="/payment-security">Sigurnost plaćanja</Link>
+            </p>
+          </div>
         </div>
       </main>
     </PageShell>

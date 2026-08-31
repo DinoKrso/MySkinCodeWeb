@@ -1,0 +1,68 @@
+.payment-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.payment-logos__label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.payment-logos__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.payment-logos__row li {
+  display: flex;
+}
+
+.payment-logos__row a {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.payment-logos__row img {
+  display: block;
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+
+.payment-logos__row--security {
+  margin-top: 0.25rem;
+}
+
+.payment-logos__row--security img {
+  height: 32px;
+}
+
+.payment-logos__note {
+  margin: 0;
+  max-width: 36rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--color-text-faint);
+}
+
+.payment-logos--compact .payment-logos__row img {
+  height: 28px;
+}
+
+.payment-logos--compact .payment-logos__label {
+  font-size: 0.6875rem;
+}

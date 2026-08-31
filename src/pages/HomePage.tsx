@@ -3,11 +3,13 @@ import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import BrandLogo from "../components/BrandLogo";
 import FaqAccordion from "../components/FaqAccordion";
+import PaymentLogos from "../components/PaymentLogos";
 import PhoneMock from "../components/PhoneMock";
 import PricingPlansSection from "../components/PricingPlansSection";
 import type { BillingInterval } from "../content/plans";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "../content/download";
 import { FAQ_LANDING_PREVIEW, FAQ_SUPPORT_EMAIL } from "../content/faq";
+import { MERCHANT, merchantLines } from "../content/merchant";
 import { useAuth } from "../context/AuthContext";
 import {
   animateCarouselToStep,
@@ -734,10 +736,19 @@ export default function HomePage() {
                 <h4>Pravno</h4>
                 <ul>
                   <li>
-                    <Link to="/privacy">Privacy Policy</Link>
+                    <Link to="/privacy">Politika privatnosti</Link>
                   </li>
                   <li>
-                    <Link to="/terms">Terms of Use</Link>
+                    <Link to="/terms">Uvjeti korištenja</Link>
+                  </li>
+                  <li>
+                    <Link to="/terms-of-sale">Uvjeti prodaje</Link>
+                  </li>
+                  <li>
+                    <Link to="/refund">Povrat sredstava</Link>
+                  </li>
+                  <li>
+                    <Link to="/payment-security">Sigurnost plaćanja</Link>
                   </li>
                 </ul>
               </div>
@@ -800,8 +811,21 @@ export default function HomePage() {
             </nav>
           </div>
 
+          <div className="landing-footer__payments">
+            <PaymentLogos />
+            <address className="landing-footer__company">
+              {merchantLines().map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+              <span>
+                <a href={`mailto:${MERCHANT.email}`}>{MERCHANT.email}</a>
+                {MERCHANT.phone ? ` · ${MERCHANT.phone}` : ""}
+              </span>
+            </address>
+          </div>
+
           <p className="landing-footer__copy">
-            © {new Date().getFullYear()} MySkin Code. Sva prava pridržana.
+            © {new Date().getFullYear()} {MERCHANT.brandName}. Sva prava pridržana.
           </p>
         </div>
       </footer>

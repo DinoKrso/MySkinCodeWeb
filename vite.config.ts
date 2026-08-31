@@ -6,6 +6,7 @@ import { forgotPasswordPlugin } from "./server/vite-forgot-password-plugin";
 import { adminUsersCountPlugin } from "./server/vite-admin-users-count-plugin";
 import { adminProductsPlugin } from "./server/vite-admin-products-plugin";
 import { adminProductImagePlugin } from "./server/vite-admin-product-image-plugin";
+import { monriPlugin } from "./server/vite-monri-plugin";
 import { apiTargets } from "./server/api-lib/api-targets";
 
 /** Serve static privacy.html at /privacy (no JS required — App Store review). */
@@ -46,6 +47,7 @@ export default defineConfig(({ mode }) => {
       adminUsersCountPlugin(),
       adminProductsPlugin(),
       adminProductImagePlugin(),
+      monriPlugin(),
     ],
     envPrefix: ["VITE_", "EXPO_PUBLIC_"],
     resolve: {

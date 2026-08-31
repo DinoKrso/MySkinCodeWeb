@@ -58,11 +58,21 @@ export const FAQ_CATEGORIES: readonly FaqCategory[] = [
         answer:
           "Da. Pretplatu možete otkazati bilo kada. Nakon otkazivanja zadržavate pristup do kraja plaćenog razdoblja.",
       },
-      {
-        question: "Postoji li godišnja pretplata?",
-        answer:
-          "Da. Plus i Premium dostupni su mjesečno ili godišnje, s uštedom u odnosu na 12 mjesečnih uplata.",
-      },
+            {
+              question: "Postoji li godišnja pretplata?",
+              answer:
+                "Da. Plus i Premium dostupni su mjesečno ili godišnje, s uštedom u odnosu na 12 mjesečnih uplata.",
+            },
+            {
+              question: "Kako se plaća pretplata?",
+              answer:
+                "Plaćanje se izvršava karticama Visa, Mastercard i Maestro putem Monri WebPay. Podatke kartice unesete na sigurnoj Monri stranici. Broj kartice ne pohranjujemo.",
+            },
+            {
+              question: "Kako funkcionira povrat novca?",
+              answer:
+                "Zahtjev pošaljite na support. Ako ste platili karticom, povrat se uvijek vraća na istu karticu storniranjem transakcije — nikad gotovinom ni na drugi račun. Detalji su na stranici Povrat sredstava.",
+            },
     ],
   },
   {
