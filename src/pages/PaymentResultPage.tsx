@@ -60,6 +60,7 @@ export default function PaymentResultPage({ variant }: Props) {
       setWaitingActivation(false);
       return;
     }
+    const accessToken = token;
 
     let cancelled = false;
     let attempts = 0;
@@ -67,7 +68,7 @@ export default function PaymentResultPage({ variant }: Props) {
 
     async function poll() {
       try {
-        const data = await fetchUserProfile(token, userId);
+        const data = await fetchUserProfile(accessToken, userId);
         if (cancelled) return;
         if (isSubscriptionActive(data)) {
           const plan = findPlanById(data.subscriptionPlan);
