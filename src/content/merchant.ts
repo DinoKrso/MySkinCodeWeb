@@ -3,14 +3,14 @@ import { FAQ_SUPPORT_EMAIL } from "./faq";
 
 export const MERCHANT = {
   brandName: "MySkin Code",
-  legalName: readEnv("MERCHANT_LEGAL_NAME") ?? "MySkin Code",
+  legalName: readEnv("MERCHANT_LEGAL_NAME") ?? "TMV d.o.o",
   taxId: readEnv("MERCHANT_TAX_ID") ?? "4281275700006",
   companyNumber: readEnv("MERCHANT_COMPANY_NUMBER") ?? "68-01-0025-17",
   court: readEnv("MERCHANT_COURT") ?? "Općinski sud u Livnu",
-  address: readEnv("MERCHANT_ADDRESS") ?? "",
-  city: readEnv("MERCHANT_CITY") ?? "",
+  address: readEnv("MERCHANT_ADDRESS") ?? "Splitska 15",
+  city: readEnv("MERCHANT_CITY") ?? "80101 Livno",
   country: readEnv("MERCHANT_COUNTRY") ?? "Bosna i Hercegovina",
-  phone: readEnv("MERCHANT_PHONE") ?? "",
+  phone: readEnv("MERCHANT_PHONE") ?? "+38763371252",
   email: readEnv("MERCHANT_EMAIL") ?? "info@myskincodeapp.com",
   supportEmail: readEnv("MERCHANT_SUPPORT_EMAIL") ?? FAQ_SUPPORT_EMAIL,
   domain: "www.myskincodeapp.com",
@@ -35,5 +35,6 @@ export function merchantLines(): string[] {
     lines.push(`Matični broj: ${MERCHANT.companyNumber}`);
   }
   if (MERCHANT.court) lines.push(MERCHANT.court);
+  if (MERCHANT.phone) lines.push(`Tel: ${MERCHANT.phone}`);
   return lines;
 }
