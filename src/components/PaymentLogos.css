@@ -50,6 +50,10 @@
   height: 32px;
 }
 
+.payment-logos__row--security img.payment-logos__img--security-badge {
+  height: 48px;
+}
+
 .payment-logos__note {
   margin: 0;
   max-width: 36rem;

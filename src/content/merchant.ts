@@ -4,9 +4,9 @@ import { FAQ_SUPPORT_EMAIL } from "./faq";
 export const MERCHANT = {
   brandName: "MySkin Code",
   legalName: readEnv("MERCHANT_LEGAL_NAME") ?? "MySkin Code",
-  taxId: readEnv("MERCHANT_TAX_ID") ?? "",
-  companyNumber: readEnv("MERCHANT_COMPANY_NUMBER") ?? "",
-  court: readEnv("MERCHANT_COURT") ?? "",
+  taxId: readEnv("MERCHANT_TAX_ID") ?? "4281275700006",
+  companyNumber: readEnv("MERCHANT_COMPANY_NUMBER") ?? "68-01-0025-17",
+  court: readEnv("MERCHANT_COURT") ?? "Općinski sud u Livnu",
   address: readEnv("MERCHANT_ADDRESS") ?? "",
   city: readEnv("MERCHANT_CITY") ?? "",
   country: readEnv("MERCHANT_COUNTRY") ?? "Bosna i Hercegovina",

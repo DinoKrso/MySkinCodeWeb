@@ -38,13 +38,13 @@ export const ACCEPTANCE_LOGOS: readonly PaymentLogo[] = [
 export const SECURITY_LOGOS: readonly PaymentLogo[] = [
   {
     id: "visa-secure",
-    src: "/payment-logos/visa-secure.svg",
+    src: "/payment-logos/visa-secure.jpg",
     alt: "Visa Secure",
     href: "https://www.visa.com/",
   },
   {
     id: "mastercard-id-check",
-    src: "/payment-logos/mastercard-id-check.svg",
+    src: "/payment-logos/idcheck.png",
     alt: "Mastercard® Identity Check™",
     href: "https://www.mastercard.com/",
   },
@@ -86,7 +86,16 @@ export default function PaymentLogos({ variant = "full", className }: Props) {
                   rel="noreferrer"
                   title={logo.alt}
                 >
-                  <img src={logo.src} alt={logo.alt} />
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className={
+                      logo.id === "visa-secure" ||
+                      logo.id === "mastercard-id-check"
+                        ? "payment-logos__img--security-badge"
+                        : undefined
+                    }
+                  />
                 </a>
               </li>
             ))}
