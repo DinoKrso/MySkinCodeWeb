@@ -9,7 +9,7 @@ import PricingPlansSection from "../components/PricingPlansSection";
 import type { BillingInterval } from "../content/plans";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "../content/download";
 import { FAQ_LANDING_PREVIEW, FAQ_SUPPORT_EMAIL } from "../content/faq";
-import { MERCHANT, merchantLines } from "../content/merchant";
+import { MERCHANT } from "../content/merchant";
 import { useAuth } from "../context/AuthContext";
 import {
   animateCarouselToStep,
@@ -813,15 +813,6 @@ export default function HomePage() {
 
           <div className="landing-footer__payments">
             <PaymentLogos />
-            <address className="landing-footer__company">
-              {merchantLines().map((line) => (
-                <span key={line}>{line}</span>
-              ))}
-              <span>
-                <a href={`mailto:${MERCHANT.email}`}>{MERCHANT.email}</a>
-                {MERCHANT.phone ? ` · ${MERCHANT.phone}` : ""}
-              </span>
-            </address>
           </div>
 
           <p className="landing-footer__copy">

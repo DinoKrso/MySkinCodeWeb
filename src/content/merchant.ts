@@ -19,22 +19,3 @@ export const MERCHANT = {
 export function isMonriTestMode(): boolean {
   return readEnv("MONRI_TEST_MODE") !== "false";
 }
-
-export function merchantLines(): string[] {
-  const lines: string[] = [MERCHANT.legalName];
-  if (MERCHANT.address) {
-    lines.push(
-      [MERCHANT.address, MERCHANT.city].filter(Boolean).join(", "),
-    );
-  } else if (MERCHANT.city) {
-    lines.push(MERCHANT.city);
-  }
-  if (MERCHANT.country) lines.push(MERCHANT.country);
-  if (MERCHANT.taxId) lines.push(`PDV / JIB: ${MERCHANT.taxId}`);
-  if (MERCHANT.companyNumber) {
-    lines.push(`Matični broj: ${MERCHANT.companyNumber}`);
-  }
-  if (MERCHANT.court) lines.push(MERCHANT.court);
-  if (MERCHANT.phone) lines.push(`Tel: ${MERCHANT.phone}`);
-  return lines;
-}
