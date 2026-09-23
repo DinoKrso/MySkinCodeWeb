@@ -28,7 +28,7 @@ export default function PhoneMock({
       ) : (
         <div className="phone-mock__screen phone-mock__screen--placeholder" />
       )}
-      <div className="phone-mock__notch" aria-hidden="true" />
+      {!screenSrc && <div className="phone-mock__notch" aria-hidden="true" />}
     </div>
   );
 }

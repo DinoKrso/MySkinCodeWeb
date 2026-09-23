@@ -178,19 +178,73 @@
   color: var(--landing-text-faint);
 }
 
-.landing-partners__logos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem 3rem;
-  opacity: 0.4;
+.landing-partners__marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
 }
 
-.landing-partners__logos span {
+.landing-partners__track {
+  display: flex;
+  width: max-content;
+  animation: landing-partners-marquee 70s linear infinite;
+}
+
+.landing-partners__track:hover {
+  animation-play-state: paused;
+}
+
+.landing-partners__group {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin: 0;
+  padding: 0 3rem 0 0;
+  list-style: none;
+}
+
+.landing-partners__group li {
+  flex-shrink: 0;
   font-size: 1.25rem;
   font-weight: var(--font-weight-medium);
   white-space: nowrap;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+@keyframes landing-partners-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-partners__track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: center;
+    row-gap: 1rem;
+  }
+
+  .landing-partners__group:last-child {
+    display: none;
+  }
+
+  .landing-partners__group {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+    gap: 1.25rem 2.5rem;
+  }
 }
 
 /* Section headings */
@@ -315,27 +369,6 @@
   position: absolute;
   max-width: none;
   object-fit: cover;
-}
-
-/* Nagnuti telefon — samo prvi slajd (Figma 371.756x743.545, rotate 18.39deg) */
-.landing-how__tilted-phone {
-  position: absolute;
-  left: calc(928px * var(--how-slide-scale));
-  top: 50%;
-  width: calc(371.756px * var(--how-slide-scale));
-  height: calc(743.545px * var(--how-slide-scale));
-  transform: translate(-50%, -50%) rotate(18.39deg);
-  box-sizing: border-box;
-  border: calc(7.5px * var(--how-slide-scale)) solid rgba(26, 26, 26, 0.05);
-  border-radius: calc(32px * var(--how-slide-scale));
-  background: linear-gradient(
-    117deg,
-    #f0ece4 0%,
-    #ede9e2 33%,
-    #ebe7df 66%,
-    #e8e4dd 100%
-  );
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 .landing-how__slide-content {
@@ -625,16 +658,17 @@
     transform-origin: center center;
   }
 
-  .landing-how__tilted-phone {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 6.75rem;
-    height: 13.5rem;
-    border-width: 5px;
-    border-radius: 1.15rem;
-    transform: rotate(12deg);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+  /* Korak 1 — pomakni par telefona udesno (PNG ima više praznog prostora lijevo) */
+  .landing-how__slide--center-media .landing-how__photo img {
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: translateX(8%) !important;
   }
 
   .landing-how__slide-content {
@@ -907,6 +941,8 @@
 /* CTA */
 .landing-cta {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   padding: 6rem 0;
   background: linear-gradient(
@@ -977,11 +1013,24 @@
 }
 
 .landing-cta__phone-wrap {
+  position: relative;
+  z-index: 0;
   display: flex;
   justify-content: center;
+  width: min(100%, var(--landing-max));
+  margin-inline: auto;
+  padding-inline: var(--landing-section-pad);
+  order: 1;
+}
+
+.landing-cta__inner {
+  z-index: 1;
 }
 
 .landing-cta__phone-wrap .landing-phone-mock {
+  display: block;
+  width: 100%;
+  height: auto;
   transform-origin: center bottom;
 }
 
@@ -1276,8 +1325,45 @@
 }
 
 @media (min-width: 768px) {
+  .landing-cta {
+    display: block;
+    /* Figma Section 579:2679 ≈ 2010×1056 */
+    min-height: clamp(32rem, 52.5vw, 66rem);
+    padding: 0;
+  }
+
   .landing-cta__inner {
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    align-items: center;
+    min-height: inherit;
+    position: relative;
+    z-index: 1;
+  }
+
+  .landing-cta__text {
+    max-width: 32rem;
+  }
+
+  .landing-cta__phone-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  /* Figma img: left 24.32%, top -2.95%, width 77.09%, height 97.84% */
+  .landing-cta__phone-wrap .landing-phone-mock {
+    position: absolute;
+    left: 24.32%;
+    top: -2.95%;
+    width: 77.09%;
+    height: 97.84%;
+    max-width: none;
+    object-fit: contain;
   }
 }
 

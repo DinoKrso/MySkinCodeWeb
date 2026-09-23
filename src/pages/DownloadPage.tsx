@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import PhoneMock from "../components/PhoneMock";
 import StoreBadges from "../components/StoreBadges";
 import "./DownloadPage.css";
 
@@ -39,10 +38,12 @@ export default function DownloadPage() {
           </section>
 
           <div className="download-page__visual" aria-label="Pregled aplikacije">
-            <PhoneMock
-              variant="download"
-              screenSrc="/images/landing-hero.png"
-              screenAlt="Pregled MySkin Code aplikacije"
+            <img
+              className="download-page__phone"
+              src="/images/how-it-works/download.png"
+              alt="MySkin Code na App Storeu"
+              width={4096}
+              height={2731}
             />
           </div>
         </div>

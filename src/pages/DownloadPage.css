@@ -121,12 +121,23 @@
 }
 
 .download-page__visual {
-  display: flex;
-  justify-content: center;
+  position: relative;
+  display: block;
+  width: min(240px, 58vw);
+  aspect-ratio: 935 / 1941;
+  margin-inline: auto;
+  overflow: hidden;
 }
 
-.download-page__visual .phone-mock--download {
-  width: min(240px, 58vw);
+.download-page__phone {
+  position: absolute;
+  /* Opaque phone bbox in download.png: 1568–2503 × 441–2382 of 4096×2731 */
+  width: calc(100% / 0.228271);
+  height: calc(100% / 0.710729);
+  max-width: none;
+  left: calc(100% * -0.382812 / 0.228271);
+  top: calc(100% * -0.161479 / 0.710729);
+  object-fit: fill;
 }
 
 @media (max-width: 639px) {
@@ -171,10 +182,7 @@
   }
 
   .download-page__visual {
-    justify-content: flex-end;
-  }
-
-  .download-page__visual .phone-mock--download {
+    margin-inline: 0 0 0 auto;
     width: min(280px, 100%);
   }
 }

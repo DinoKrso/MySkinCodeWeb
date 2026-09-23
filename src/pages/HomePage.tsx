@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import BrandLogo from "../components/BrandLogo";
 import FaqAccordion from "../components/FaqAccordion";
 import PaymentLogos from "../components/PaymentLogos";
-import PhoneMock from "../components/PhoneMock";
 import PricingPlansSection from "../components/PricingPlansSection";
 import type { BillingInterval } from "../content/plans";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "../content/download";
@@ -39,9 +38,9 @@ type HowStep = {
     src: string;
     mobileSrc?: string;
     mobileZoom?: boolean;
+    mobileCenter?: boolean;
     style: CSSProperties;
   };
-  tiltedPhone?: boolean;
   storeBadges?: boolean;
   note?: string;
 };
@@ -52,7 +51,11 @@ const HOW_IT_WORKS_STEPS: readonly HowStep[] = [
     title: "Preuzmite aplikaciju",
     description:
       "Preuzmite MySkin Code aplikaciju i započnite potpuno personalizirano skincare iskustvo. Analizirajte svoju kožu, pratite napredak i primajte preporuke rutine prilagođene upravo vašim potrebama, sve na jednom mjestu.",
-    tiltedPhone: true,
+    photo: {
+      src: `${HOW_ASSETS}/slide-1.png`,
+      style: { width: "71.28%", height: "92.59%", left: "43.52%", top: "10.73%" },
+      mobileCenter: true,
+    },
     storeBadges: true,
     cards: [
       {
@@ -354,6 +357,36 @@ const PARTNER_BRANDS = [
   "The Ordinary",
   "Paula's Choice",
   "Typology",
+  "Beauty of Joseon",
+  "SKIN1004",
+  "COSRX",
+  "Purito Seoul",
+  "Round Lab",
+  "Aestura",
+  "Anua",
+  "Haruharu Wonder",
+  "Isntree",
+  "Medicube",
+  "Rilastl",
+  "Transparent Lab",
+  "Theramid",
+  "Acnemy",
+  "celimax",
+  "mixsoon",
+  "Kaine",
+  "Eqqualberry",
+  "Laneige",
+  "Nacific",
+  "Frankly",
+  "Arencia",
+  "House of Hur",
+  "VT Cosmetics",
+  "Dr. Melaxin",
+  "K-SECRET",
+  "VVBETTER",
+  "Seapuri",
+  "Rosalique",
+  "Salcur",
 ] as const;
 
 export default function HomePage() {
@@ -409,12 +442,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="landing-partners" aria-label="Partneri">
+      <section className="landing-partners" aria-label="Skincare brendovi">
         <div className="landing__container">
-          <p className="landing-partners__label">Partneri i skincare brendovi</p>
-          <div className="landing-partners__logos">
-            {PARTNER_BRANDS.map((brand) => (
-              <span key={brand}>{brand}</span>
+          <p className="landing-partners__label">Skincare brendovi</p>
+        </div>
+        <div className="landing-partners__marquee">
+          <div className="landing-partners__track">
+            {[0, 1].map((copy) => (
+              <ul
+                key={copy}
+                className="landing-partners__group"
+                aria-hidden={copy === 1 ? true : undefined}
+              >
+                {PARTNER_BRANDS.map((brand) => (
+                  <li key={`${copy}-${brand}`}>{brand}</li>
+                ))}
+              </ul>
             ))}
           </div>
         </div>
@@ -433,10 +476,10 @@ export default function HomePage() {
         </div>
 
         <div className="landing-how__carousel" ref={carouselRef}>
-          {HOW_IT_WORKS_STEPS.map((step) => (
+          {HOW_IT_WORKS_STEPS.map((step, index) => (
             <article
               key={step.label}
-              className={`landing-how__slide${step.photo?.mobileZoom ? " landing-how__slide--zoom-media" : ""}`}
+              className={`landing-how__slide${step.photo?.mobileZoom ? " landing-how__slide--zoom-media" : ""}${step.photo?.mobileCenter ? " landing-how__slide--center-media" : ""}`}
             >
               <div className="landing-how__media" aria-hidden="true">
                 {step.photo && (
@@ -452,13 +495,12 @@ export default function HomePage() {
                         src={step.photo.src}
                         alt=""
                         style={step.photo.style}
-                        loading="lazy"
+                        loading="eager"
+                        fetchPriority={index === 0 ? "high" : "auto"}
+                        decoding="async"
                       />
                     </picture>
                   </div>
-                )}
-                {step.tiltedPhone && (
-                  <div className="landing-how__tilted-phone" />
                 )}
               </div>
               <div className="landing-how__slide-content">
@@ -613,6 +655,15 @@ export default function HomePage() {
       <section className="landing-cta landing-snap" aria-labelledby="cta-title">
         <div className="landing-cta__glow landing-cta__glow--left" aria-hidden="true" />
         <div className="landing-cta__glow landing-cta__glow--right" aria-hidden="true" />
+        <div className="landing-cta__phone-wrap" aria-hidden="true">
+          <img
+            className="landing-phone-mock"
+            src="/images/how-it-works/highlights.png"
+            alt=""
+            width={4096}
+            height={2731}
+          />
+        </div>
         <div className="landing__container landing-cta__inner">
           <div className="landing-cta__text">
             <h2 id="cta-title">Započnite svoju skincare analizu</h2>
@@ -622,9 +673,6 @@ export default function HomePage() {
             <Link to="/download" className="landing-btn landing-btn--primary">
               Preuzmi aplikaciju
             </Link>
-          </div>
-          <div className="landing-cta__phone-wrap">
-            <PhoneMock variant="hero" className="landing-phone-mock" />
           </div>
         </div>
       </section>
