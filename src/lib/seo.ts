@@ -16,7 +16,7 @@ export const DEFAULT_SEO = {
   title: "MySkin Code | Personalizirana njega kože uz AI",
   description:
     "Analizirajte stanje kože, dobijte personaliziranu rutinu, pratite napredak i razumijte sastojke proizvoda — sve u jednoj aplikaciji MySkin Code.",
-  imagePath: "/images/landing-hero.png",
+  imagePath: "/images/og-share.png",
 } as const;
 
 export type PageSeo = {

@@ -18,6 +18,16 @@ export default function DownloadPage() {
         <div className="download-page__glow download-page__glow--right" aria-hidden="true" />
 
         <div className="download-page__panel">
+          <div className="download-page__visual" aria-label="Pregled aplikacije">
+            <img
+              className="download-page__phone"
+              src="/images/how-it-works/download.png"
+              alt="MySkin Code na App Storeu"
+              width={4096}
+              height={2731}
+            />
+          </div>
+
           <section className="download-page__copy">
             <p className="download-page__eyebrow">Preuzimanje</p>
             <h1>Preuzmite MySkin Code</h1>
@@ -39,16 +49,6 @@ export default function DownloadPage() {
               </Link>
             </div>
           </section>
-
-          <div className="download-page__visual" aria-label="Pregled aplikacije">
-            <img
-              className="download-page__phone"
-              src="/images/how-it-works/download.png"
-              alt="MySkin Code na App Storeu"
-              width={4096}
-              height={2731}
-            />
-          </div>
         </div>
       </main>
     </div>

@@ -171,7 +171,7 @@
 .landing-partners__label {
   margin: 0 0 2rem;
   font-size: 0.8125rem;
-  font-weight: var(--font-weight-regular);
+  font-weight: 300;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   text-align: center;
@@ -211,7 +211,7 @@
 .landing-partners__group li {
   flex-shrink: 0;
   font-size: 1.25rem;
-  font-weight: var(--font-weight-medium);
+  font-weight: 300;
   white-space: nowrap;
   text-transform: uppercase;
   opacity: 0.45;

@@ -57,7 +57,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
+  gap: 1.75rem;
   align-items: center;
   width: min(100%, 68rem);
   margin-inline: auto;
@@ -123,7 +123,7 @@
 .download-page__visual {
   position: relative;
   display: block;
-  width: min(240px, 58vw);
+  width: min(168px, 42vw);
   aspect-ratio: 935 / 1941;
   margin-inline: auto;
   overflow: hidden;
@@ -143,12 +143,17 @@
 @media (max-width: 639px) {
   .download-page {
     align-items: flex-start;
-    padding-top: 2.5rem;
+    padding-top: 1.75rem;
+    padding-bottom: 2.5rem;
     min-height: auto;
   }
 
+  .download-page__panel {
+    gap: 1.5rem;
+  }
+
   .download-page__visual {
-    display: none;
+    width: min(152px, 40vw);
   }
 
   .download-page__badges {
@@ -162,6 +167,12 @@
   }
 }
 
+@media (min-width: 640px) and (max-width: 899px) {
+  .download-page__visual {
+    width: min(200px, 36vw);
+  }
+}
+
 @media (min-width: 900px) {
   .download-page__panel {
     grid-template-columns: 1.05fr 0.95fr;
@@ -169,7 +180,16 @@
   }
 
   .download-page__copy {
+    grid-column: 1;
+    grid-row: 1;
     text-align: left;
+  }
+
+  .download-page__visual {
+    grid-column: 2;
+    grid-row: 1;
+    margin-inline: 0 0 0 auto;
+    width: min(280px, 100%);
   }
 
   .download-page__lead {
@@ -179,10 +199,5 @@
   .download-page__badges,
   .download-page__links {
     justify-content: flex-start;
-  }
-
-  .download-page__visual {
-    margin-inline: 0 0 0 auto;
-    width: min(280px, 100%);
   }
 }
