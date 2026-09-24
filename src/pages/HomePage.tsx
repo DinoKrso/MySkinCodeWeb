@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import BrandLogo from "../components/BrandLogo";
@@ -9,6 +9,12 @@ import type { BillingInterval } from "../content/plans";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "../content/download";
 import { FAQ_LANDING_PREVIEW, FAQ_SUPPORT_EMAIL } from "../content/faq";
 import { MERCHANT } from "../content/merchant";
+import {
+  HERO_VIDEO_SRC,
+  isHeroVideoElementReady,
+  notifyHeroVideoReady,
+  resetHeroVideoReady,
+} from "../lib/hero-video";
 import { useAuth } from "../context/AuthContext";
 import {
   animateCarouselToStep,
@@ -407,7 +413,18 @@ export default function HomePage() {
   const [activeStep, setActiveStep] = useState(0);
   const [billingInterval, setBillingInterval] = useState<BillingInterval>("monthly");
   const carouselRef = useRef<HTMLDivElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const landingRef = useLandingAnimations(carouselRef, setActiveStep);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (isHeroVideoElementReady(video)) {
+      notifyHeroVideoReady();
+    }
+    return () => {
+      resetHeroVideoReady();
+    };
+  }, []);
 
   usePageSeo({
     title: DEFAULT_SEO.title,
@@ -430,6 +447,7 @@ export default function HomePage() {
     <div className="landing" ref={landingRef}>
       <section className="landing-hero" aria-labelledby="hero-title">
         <video
+          ref={heroVideoRef}
           className="landing-hero__bg"
           autoPlay
           muted
@@ -437,8 +455,11 @@ export default function HomePage() {
           playsInline
           preload="auto"
           aria-hidden="true"
+          onCanPlayThrough={notifyHeroVideoReady}
+          onPlaying={notifyHeroVideoReady}
+          onError={notifyHeroVideoReady}
         >
-          <source src="/images/SkinCodeVideo.mp4" type="video/mp4" />
+          <source src={HERO_VIDEO_SRC} type="video/mp4" />
         </video>
         <div className="landing-hero__overlay" aria-hidden="true" />
         <div className="landing-hero__content">
