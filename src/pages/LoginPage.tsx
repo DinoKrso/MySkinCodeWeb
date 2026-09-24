@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { login, loginWithFirebaseToken } from "../lib/auth";
 import { sanitizeRedirectPath } from "../lib/app-handoff";
 import { getMissingFirebaseEnvKeys, isFirebaseConfigured, signInWithGoogle } from "../lib/firebase";
+import { usePageSeo } from "../lib/seo";
 import PageShell from "../layouts/PageShell";
 import "./LoginPage.css";
 
@@ -44,6 +45,13 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+
+  usePageSeo({
+    title: "Prijava | MySkin Code",
+    description:
+      "Prijavite se u MySkin Code i nastavite s personaliziranom AI analizom kože, rutinom i praćenjem napretka.",
+    path: "/login",
+  });
 
   const [searchParams] = useSearchParams();
   const planParam = searchParams.get("plan");

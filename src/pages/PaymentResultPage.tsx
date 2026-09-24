@@ -6,6 +6,7 @@ import { getStoredToken } from "../lib/auth";
 import { fetchUserProfile } from "../lib/profile";
 import PageShell from "../layouts/PageShell";
 import { verifyMonriSuccessUrl } from "../lib/monri";
+import { usePageSeo } from "../lib/seo";
 import "./PaymentResultPage.css";
 
 type Variant = "success" | "cancel";
@@ -29,12 +30,18 @@ export default function PaymentResultPage({ variant }: Props) {
   const orderNumber = searchParams.get("order_number");
   const responseCode = searchParams.get("response_code");
 
-  useEffect(() => {
-    document.title =
+  usePageSeo({
+    title:
       variant === "success"
         ? "Plaćanje uspješno | MySkin Code"
-        : "Plaćanje otkazano | MySkin Code";
-  }, [variant]);
+        : "Plaćanje otkazano | MySkin Code",
+    description:
+      variant === "success"
+        ? "Vaša MySkin Code pretplata je uspješno aktivirana."
+        : "Plaćanje MySkin Code pretplate je otkazano.",
+    path: variant === "success" ? "/payment/success" : "/payment/cancel",
+    noindex: true,
+  });
 
   useEffect(() => {
     if (variant !== "success") return;

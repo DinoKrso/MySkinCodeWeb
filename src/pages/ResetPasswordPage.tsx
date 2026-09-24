@@ -6,6 +6,7 @@ import {
   submitNewPassword,
   validateResetToken,
 } from "../lib/password-reset";
+import { usePageSeo } from "../lib/seo";
 import "./ResetPasswordPage.css";
 
 export default function ResetPasswordPage() {
@@ -22,6 +23,13 @@ export default function ResetPasswordPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  usePageSeo({
+    title: "Nova lozinka | MySkin Code",
+    description: "Postavite novu lozinku za MySkin Code račun.",
+    path: "/reset-password",
+    noindex: true,
+  });
 
   useEffect(() => {
     if (!token) {

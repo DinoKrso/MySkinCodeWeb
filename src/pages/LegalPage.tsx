@@ -1,12 +1,20 @@
-import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { LegalDocument } from "../content/legal";
 import LegalContent from "../components/LegalContent";
 import PaymentLogos from "../components/PaymentLogos";
+import { usePageSeo } from "../lib/seo";
 import "./LegalPage.css";
 
 type Props = {
   document: LegalDocument;
+};
+
+const LEGAL_PATHS: Record<string, string> = {
+  privacy: "/privacy",
+  terms: "/terms",
+  "terms-of-sale": "/terms-of-sale",
+  refund: "/refund",
+  "payment-security": "/payment-security",
 };
 
 function BackIcon() {
@@ -26,17 +34,11 @@ function BackIcon() {
 export default function LegalPage({ document: doc }: Props) {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.title = doc.seoTitle;
-
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "description");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", doc.seoDescription);
-  }, [doc]);
+  usePageSeo({
+    title: doc.seoTitle,
+    description: doc.seoDescription,
+    path: LEGAL_PATHS[doc.id] ?? `/${doc.id}`,
+  });
 
   function handleBack() {
     if (window.history.length > 1) {

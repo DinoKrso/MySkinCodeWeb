@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /admin/
+Disallow: /account
+Disallow: /plans
+Disallow: /checkout
+Disallow: /auth/
+Disallow: /payment/
+Disallow: /forgot-password
+Disallow: /reset-password
+
+Sitemap: https://www.myskincodeapp.com/sitemap.xml

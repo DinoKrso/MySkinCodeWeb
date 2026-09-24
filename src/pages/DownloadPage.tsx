@@ -1,12 +1,15 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import StoreBadges from "../components/StoreBadges";
+import { usePageSeo } from "../lib/seo";
 import "./DownloadPage.css";
 
 export default function DownloadPage() {
-  useEffect(() => {
-    document.title = "Preuzmi aplikaciju | MySkin Code";
-  }, []);
+  usePageSeo({
+    title: "Preuzmi aplikaciju | MySkin Code",
+    description:
+      "Preuzmite MySkin Code na App Store ili Google Play — personalizirana AI analiza kože dostupna na iOS i Android.",
+    path: "/download",
+  });
 
   return (
     <div className="download-layout">

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { parseAppHandoffSearchParams } from "../lib/app-handoff";
+import { usePageSeo } from "../lib/seo";
 import PageShell from "../layouts/PageShell";
 import "./AppAuthHandoffPage.css";
 
@@ -12,9 +13,12 @@ export default function AppAuthHandoffPage() {
   const [error, setError] = useState<string | null>(null);
   const handledRef = useRef(false);
 
-  useEffect(() => {
-    document.title = "Prijava | MySkin Code";
-  }, []);
+  usePageSeo({
+    title: "Prijava | MySkin Code",
+    description: "Dovršite prijavu u MySkin Code web račun.",
+    path: "/auth/app",
+    noindex: true,
+  });
 
   useEffect(() => {
     if (handledRef.current) return;

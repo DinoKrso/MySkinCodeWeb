@@ -14,6 +14,13 @@ import {
   animateCarouselToStep,
   useLandingAnimations,
 } from "../hooks/useLandingAnimations";
+import {
+  DEFAULT_SEO,
+  buildOrganizationJsonLd,
+  buildSoftwareApplicationJsonLd,
+  buildWebSiteJsonLd,
+  usePageSeo,
+} from "../lib/seo";
 import "./HomePage.css";
 
 const HOW_ASSETS = "/images/how-it-works";
@@ -389,12 +396,25 @@ const PARTNER_BRANDS = [
   "Salcur",
 ] as const;
 
+const HOME_JSON_LD = [
+  buildWebSiteJsonLd(),
+  buildOrganizationJsonLd(),
+  buildSoftwareApplicationJsonLd(),
+];
+
 export default function HomePage() {
   const { user } = useAuth();
   const [activeStep, setActiveStep] = useState(0);
   const [billingInterval, setBillingInterval] = useState<BillingInterval>("monthly");
   const carouselRef = useRef<HTMLDivElement>(null);
   const landingRef = useLandingAnimations(carouselRef, setActiveStep);
+
+  usePageSeo({
+    title: DEFAULT_SEO.title,
+    description: DEFAULT_SEO.description,
+    path: "/",
+    jsonLd: HOME_JSON_LD,
+  });
 
   const scrollToStep = useCallback(
     (index: number) => {

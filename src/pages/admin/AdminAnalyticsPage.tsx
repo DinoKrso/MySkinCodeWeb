@@ -11,6 +11,7 @@ import {
   type UsersCountHistoryPoint,
   type UsersCountSnapshot,
 } from "../../lib/admin-analytics";
+import { usePageSeo } from "../../lib/seo";
 import "../dashboard/dashboard-pages.css";
 import "./AdminAnalyticsPage.css";
 
@@ -35,6 +36,13 @@ export default function AdminAnalyticsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  usePageSeo({
+    title: "Analitika | MySkin Code Admin",
+    description: "MySkin Code admin analitika.",
+    path: "/admin/analitika",
+    noindex: true,
+  });
+
   const load = useCallback(async () => {
     setError(null);
     setLoading(true);
@@ -56,7 +64,6 @@ export default function AdminAnalyticsPage() {
   }, []);
 
   useEffect(() => {
-    document.title = "Analitika | MySkin Code Admin";
     void load();
   }, [load]);
 

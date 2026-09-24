@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import PageShell from "../layouts/PageShell";
 import { requestPasswordReset } from "../lib/password-reset";
+import { usePageSeo } from "../lib/seo";
 import "./ForgotPasswordPage.css";
 
 export default function ForgotPasswordPage() {
@@ -10,6 +11,13 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  usePageSeo({
+    title: "Zaboravljena lozinka | MySkin Code",
+    description: "Resetirajte lozinku za MySkin Code račun putem e-maila.",
+    path: "/forgot-password",
+    noindex: true,
+  });
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();

@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 import { isAdminConfigured } from "../../lib/admin-auth";
+import { usePageSeo } from "../../lib/seo";
 import PageShell from "../../layouts/PageShell";
 import "../LoginPage.css";
 
@@ -13,6 +14,13 @@ export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  usePageSeo({
+    title: "Admin prijava | MySkin Code",
+    description: "Prijava u MySkin Code admin panel.",
+    path: "/admin/login",
+    noindex: true,
+  });
 
   const returnTo =
     (location.state as { from?: string } | null)?.from ?? "/admin/analitika";

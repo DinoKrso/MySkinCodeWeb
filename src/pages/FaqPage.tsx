@@ -1,9 +1,24 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import FaqAccordion from "../components/FaqAccordion";
 import { FAQ_CATEGORIES, FAQ_SUPPORT_EMAIL } from "../content/faq";
 import PageShell from "../layouts/PageShell";
+import { usePageSeo } from "../lib/seo";
 import "./FaqPage.css";
+
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_CATEGORIES.flatMap((category) =>
+    category.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  ),
+};
 
 function MailIcon() {
   return (
@@ -28,9 +43,13 @@ function MailIcon() {
 }
 
 export default function FaqPage() {
-  useEffect(() => {
-    document.title = "Česta pitanja | MySkin Code";
-  }, []);
+  usePageSeo({
+    title: "Česta pitanja | MySkin Code",
+    description:
+      "Odgovori na najčešća pitanja o MySkin Code aplikaciji, AI analizi kože, paketima, privatnosti i personaliziranoj rutini.",
+    path: "/faq",
+    jsonLd: FAQ_JSON_LD,
+  });
 
   return (
     <PageShell>

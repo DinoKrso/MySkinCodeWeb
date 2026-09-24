@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PricingPlansSection from "../components/PricingPlansSection";
 import PaymentLogos from "../components/PaymentLogos";
@@ -15,6 +15,7 @@ import {
 } from "../context/DashboardProfileContext";
 import { formatSubscriptionExpiresAt } from "../lib/profile";
 import PageShell from "../layouts/PageShell";
+import { usePageSeo } from "../lib/seo";
 import "./ChoosePlanPage.css";
 
 function ChoosePlanContent() {
@@ -31,9 +32,13 @@ function ChoosePlanContent() {
   const [error, setError] = useState<string | null>(null);
   const [busyPlanId, setBusyPlanId] = useState<string | null>(null);
 
-  useEffect(() => {
-    document.title = "Odabir paketa | MySkin Code";
-  }, []);
+  usePageSeo({
+    title: "Odabir paketa | MySkin Code",
+    description:
+      "Odaberite Basic, Plus ili Premium paket za personaliziranu AI analizu kože.",
+    path: "/plans",
+    noindex: true,
+  });
 
   function handleSelect(plan: PricingPlan) {
     if (isUsersCurrentPlan(plan.id, profile)) return;

@@ -18,6 +18,7 @@ import {
 import { createMonriSession, submitMonriForm } from "../lib/monri";
 import { getStoredToken } from "../lib/auth";
 import PageShell from "../layouts/PageShell";
+import { usePageSeo } from "../lib/seo";
 import "./CheckoutPage.css";
 
 function CheckoutContent() {
@@ -31,9 +32,12 @@ function CheckoutContent() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  useEffect(() => {
-    document.title = "Potvrda narudžbe | MySkin Code";
-  }, []);
+  usePageSeo({
+    title: "Potvrda narudžbe | MySkin Code",
+    description: "Potvrdite pretplatu i sigurno platite MySkin Code paket.",
+    path: "/checkout",
+    noindex: true,
+  });
 
   useEffect(() => {
     if (!plan || !plan.requiresCheckout) {

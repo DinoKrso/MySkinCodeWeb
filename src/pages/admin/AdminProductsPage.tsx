@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import ProductImageUpload from "../../components/admin/ProductImageUpload";
 import ProductSuccessModal from "../../components/admin/ProductSuccessModal";
@@ -12,6 +12,7 @@ import {
   type ProductFormInput,
 } from "../../content/product-form";
 import { createProduct } from "../../lib/admin-products";
+import { usePageSeo } from "../../lib/seo";
 import "../dashboard/dashboard-pages.css";
 import "./AdminProductsPage.css";
 
@@ -44,9 +45,12 @@ function ListField({
 }
 
 export default function AdminProductsPage() {
-  useEffect(() => {
-    document.title = "Proizvodi | MySkin Code Admin";
-  }, []);
+  usePageSeo({
+    title: "Proizvodi | MySkin Code Admin",
+    description: "MySkin Code admin upravljanje proizvodima.",
+    path: "/admin/proizvodi",
+    noindex: true,
+  });
 
   const [form, setForm] = useState<ProductFormInput>({ ...EMPTY_PRODUCT_FORM });
   const [listDraft, setListDraft] = useState({

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   findPlanById,
@@ -10,6 +9,7 @@ import { DashboardProfileProvider, useDashboardProfile } from "../context/Dashbo
 import { formatSubscriptionExpiresAt } from "../lib/profile";
 import DeleteAccountSection from "../components/DeleteAccountSection";
 import PageShell from "../layouts/PageShell";
+import { usePageSeo } from "../lib/seo";
 import "./AccountPage.css";
 
 function AccountContent() {
@@ -30,9 +30,12 @@ function AccountContent() {
     profile?.subscriptionExpiresAt,
   );
 
-  useEffect(() => {
-    document.title = "Moj paket | MySkin Code";
-  }, []);
+  usePageSeo({
+    title: "Moj paket | MySkin Code",
+    description: "Pregledajte svoj MySkin Code paket i upravljajte pretplatom.",
+    path: "/account",
+    noindex: true,
+  });
 
   function handleLogout() {
     logout();
